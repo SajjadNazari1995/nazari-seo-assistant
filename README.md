@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".wordpress-org/banner-1544x500.png" alt="SEO Assistant by Nazari Technologies" width="100%">
+  <img src="screenshots/banner.png" alt="SEO Assistant by Nazari Technologies" width="100%">
 </p>
 
 # SEO Assistant by Nazari Technologies
@@ -31,7 +31,7 @@ SEO Assistant moves the review into the editor. You get the advice at the moment
 
 | Dashboard | Settings |
 |---|---|
-| ![Dashboard](.wordpress-org/screenshot-2.png) | ![Settings](.wordpress-org/screenshot-3.png) |
+| ![Dashboard](screenshots/dashboard.png) | ![Settings](screenshots/settings.png) |
 
 ## How it works
 
