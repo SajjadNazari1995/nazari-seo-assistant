@@ -91,7 +91,7 @@ Each category has a penalty budget. Findings add penalty by severity, and the ca
 
 ```bash
 cd wp-content/plugins
-git clone <your-repository-url> nazari-seo-assistant
+git clone https://github.com/SajjadNazari1995/nazari-seo-assistant.git
 ```
 
 Then activate it from the Plugins screen. There is no build step.
@@ -233,7 +233,7 @@ English and Persian (fa_IR) are included, with RTL support. The language follows
 
 ## Support
 
-Questions, bugs and feature requests: sajjadnazari.ir@gmail.com, or open an issue in this repository.
+Questions, bugs and feature requests: sajjadnazari.ir@gmail.com, or [open an issue on GitHub](https://github.com/SajjadNazari1995/nazari-seo-assistant/issues).
 
 WordPress.org profile: [sajjadnazari](https://profiles.wordpress.org/sajjadnazari/)
 
