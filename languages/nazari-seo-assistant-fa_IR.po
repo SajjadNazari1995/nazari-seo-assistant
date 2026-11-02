@@ -1,0 +1,527 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: SEO Assistant 1.0.0\n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "SEO Assistant"
+msgstr "دستیار سئو"
+
+msgid "Dashboard"
+msgstr "پیشخوان"
+
+msgid "Settings"
+msgstr "تنظیمات"
+
+msgid "SEO Assistant — made by %s"
+msgstr "دستیار سئو — ساخته‌شده توسط %s"
+
+msgid "Design it right the first time. No separate SEO pass."
+msgstr "از همان ابتدا درست طراحی کنید؛ بدون نیاز به مرحله جداگانه سئو."
+
+msgid "Right-click any section in the Elementor editor and choose Review structure. You get an ordered list of what to fix: the HTML tag to use, image size and resolution, mobile fit and loading speed, with a score."
+msgstr "در ویرایشگر المنتور روی هر سکشن راست‌کلیک کنید و «بررسی ساختار» را بزنید. فهرستی مرتب از موارد اصلاحی می‌گیرید: تگ HTML مناسب، اندازه و رزولوشن تصویر، تناسب با موبایل و سرعت بارگذاری، همراه با نمره."
+
+msgid "Open a page to review"
+msgstr "باز کردن یک صفحه برای بررسی"
+
+msgid "How it works"
+msgstr "چگونه کار می‌کند"
+
+msgid "Right-click"
+msgstr "راست‌کلیک"
+
+msgid "In the Elementor editor, right-click a section, container or widget and pick Review structure."
+msgstr "در ویرایشگر المنتور روی سکشن، کانتینر یا ویجت راست‌کلیک کنید و «بررسی ساختار» را انتخاب کنید."
+
+msgid "Read the guide"
+msgstr "راهنما را بخوانید"
+
+msgid "A window lists every element in order with exactly what to change and where."
+msgstr "پنجره‌ای همه المان‌ها را به ترتیب نشان می‌دهد و می‌گوید دقیقاً چه چیزی را کجا تغییر دهید."
+
+msgid "Fix and check again"
+msgstr "اصلاح و بررسی مجدد"
+
+msgid "The last item scores the page. Press Check again after your changes."
+msgstr "آخرین بخش به صفحه نمره می‌دهد. پس از اعمال تغییرات «بررسی مجدد» را بزنید."
+
+msgid "System status"
+msgstr "وضعیت سیستم"
+
+msgid "Elementor"
+msgstr "المنتور"
+
+msgid "Not active"
+msgstr "غیرفعال"
+
+msgid "Plugin version"
+msgstr "نسخه افزونه"
+
+msgid "Elementor is not active. The review window lives inside the Elementor editor."
+msgstr "المنتور فعال نیست. پنجره بررسی داخل ویرایشگر المنتور کار می‌کند."
+
+msgid "General"
+msgstr "عمومی"
+
+msgid "Rules"
+msgstr "قوانین"
+
+msgid "About"
+msgstr "درباره"
+
+msgid "Settings saved."
+msgstr "تنظیمات ذخیره شد."
+
+msgid "Review thresholds"
+msgstr "آستانه‌های بررسی"
+
+msgid "Image size: improve above (KB)"
+msgstr "حجم تصویر: هشدار بالاتر از (کیلوبایت)"
+
+msgid "Images heavier than this get an Improve notice."
+msgstr "تصاویر سنگین‌تر از این مقدار پیشنهاد بهبود می‌گیرند."
+
+msgid "Image size: fix above (KB)"
+msgstr "حجم تصویر: خطا بالاتر از (کیلوبایت)"
+
+msgid "Images heavier than this get a Fix now notice."
+msgstr "تصاویر سنگین‌تر از این مقدار هشدار «اصلاح فوری» می‌گیرند."
+
+msgid "Sharpness factor"
+msgstr "ضریب وضوح"
+
+msgid "How many times the displayed width an image may be. 2 suits retina screens."
+msgstr "عرض تصویر تا چند برابر عرض نمایش داده‌شده مجاز است. عدد ۲ برای نمایشگرهای رتینا مناسب است."
+
+msgid "Maximum nesting depth"
+msgstr "حداکثر عمق تو در تو"
+
+msgid "Containers nested deeper than this are flagged."
+msgstr "کانتینرهایی که عمیق‌تر از این تو در تو شده باشند گزارش می‌شوند."
+
+msgid "Desktop width used for estimates (px)"
+msgstr "عرض دسکتاپ برای تخمین‌ها (پیکسل)"
+
+msgid "Used to work out how wide each element appears on desktop."
+msgstr "برای محاسبه عرض هر المان در دسکتاپ استفاده می‌شود."
+
+msgid "Delete data on uninstall"
+msgstr "حذف داده‌ها هنگام پاک کردن افزونه"
+
+msgid "When you delete the plugin, also remove its settings."
+msgstr "هنگام حذف افزونه، تنظیمات آن هم پاک شود."
+
+msgid "Save settings"
+msgstr "ذخیره تنظیمات"
+
+msgid "HTML tags"
+msgstr "تگ‌های HTML"
+
+msgid "Header, footer, main, section and heading tags in the right places."
+msgstr "تگ‌های header، footer، main، section و عنوان‌ها در جای درست."
+
+msgid "Images"
+msgstr "تصاویر"
+
+msgid "File size, pixel size against displayed size, format and alt text."
+msgstr "حجم فایل، اندازه پیکسلی در برابر اندازه نمایش، فرمت و متن جایگزین."
+
+msgid "Page weight"
+msgstr "وزن صفحه"
+
+msgid "Total image weight, nesting depth and element count."
+msgstr "مجموع حجم تصاویر، عمق تو در تو و تعداد المان‌ها."
+
+msgid "Responsive fit"
+msgstr "تناسب واکنش‌گرا"
+
+msgid "Elements that overflow or shrink badly on tablet and mobile."
+msgstr "المان‌هایی که در تبلت و موبایل بیرون می‌زنند یا بد کوچک می‌شوند."
+
+msgid "Links and buttons"
+msgstr "لینک‌ها و دکمه‌ها"
+
+msgid "Empty links, vague link text and missing targets."
+msgstr "لینک خالی، متن لینک مبهم و مقصد نامشخص."
+
+msgid "Active checks"
+msgstr "بررسی‌های فعال"
+
+msgid "For developers"
+msgstr "برای توسعه‌دهندگان"
+
+msgid "Add your own checks: extend NZSA_Rule and register it with the nzsa_rules filter."
+msgstr "بررسی دلخواه اضافه کنید: کلاس NZSA_Rule را گسترش دهید و با فیلتر nzsa_rules ثبت کنید."
+
+msgid "First release: right-click Review structure in the Elementor editor."
+msgstr "نخستین نسخه: راست‌کلیک و «بررسی ساختار» در ویرایشگر المنتور."
+
+msgid "Ordered guidance per element, a scored summary and a Check again button."
+msgstr "راهنمای مرتب برای هر المان، جمع‌بندی با نمره و دکمه بررسی مجدد."
+
+msgid "English and Persian, with RTL support."
+msgstr "انگلیسی و فارسی، با پشتیبانی از راست‌به‌چپ."
+
+msgid "Version %s"
+msgstr "نسخه %s"
+
+msgid "A design review inside the Elementor editor, so the page is built to standard from the start."
+msgstr "بررسی طراحی داخل ویرایشگر المنتور تا صفحه از ابتدا استاندارد ساخته شود."
+
+msgid "Changelog"
+msgstr "تاریخچه تغییرات"
+
+msgid "Author"
+msgstr "سازنده"
+
+msgid "Name"
+msgstr "نام"
+
+msgid "GitHub"
+msgstr "گیت‌هاب"
+
+msgid "License"
+msgstr "مجوز"
+
+msgid "You are not allowed to do this."
+msgstr "اجازه انجام این کار را ندارید."
+
+msgid "Review structure"
+msgstr "بررسی ساختار"
+
+msgid "Structure review"
+msgstr "بررسی ساختار"
+
+msgid "Check again"
+msgstr "بررسی مجدد"
+
+msgid "Close"
+msgstr "بستن"
+
+msgid "Checking…"
+msgstr "در حال بررسی…"
+
+msgid "No problems found here."
+msgstr "اینجا مشکلی پیدا نشد."
+
+msgid "Summary"
+msgstr "جمع‌بندی"
+
+msgid "Score"
+msgstr "نمره"
+
+msgid "out of"
+msgstr "از"
+
+msgid "Fix these first"
+msgstr "اول این‌ها را درست کنید"
+
+msgid "Nothing urgent. Great work!"
+msgstr "مورد فوری نیست. عالی کار کردید!"
+
+msgid "Show in editor"
+msgstr "نمایش در ویرایشگر"
+
+msgid "The review could not be completed. Please try again."
+msgstr "بررسی کامل نشد. لطفاً دوباره تلاش کنید."
+
+msgid "Elements: %1$d · Images: %2$d · Image weight: %3$d KB"
+msgstr "المان‌ها: %1$d · تصاویر: %2$d · حجم تصاویر: %3$d کیلوبایت"
+
+msgid "What to do"
+msgstr "چه کنید"
+
+msgid "Section"
+msgstr "سکشن"
+
+msgid "Container"
+msgstr "کانتینر"
+
+msgid "Column"
+msgstr "ستون"
+
+msgid "Widget"
+msgstr "ویجت"
+
+msgid "Excellent"
+msgstr "عالی"
+
+msgid "Good"
+msgstr "خوب"
+
+msgid "Needs work"
+msgstr "نیازمند بهبود"
+
+msgid "Poor"
+msgstr "ضعیف"
+
+msgid "This element"
+msgstr "این المان"
+
+msgid "Whole page"
+msgstr "کل صفحه"
+
+msgid "Show elements without problems"
+msgstr "نمایش المان‌های بدون مشکل"
+
+msgid "You are not allowed to edit this page."
+msgstr "اجازه ویرایش این صفحه را ندارید."
+
+msgid "This block is too large to analyse at once."
+msgstr "این بخش برای تحلیل یکجا بیش از حد بزرگ است."
+
+msgid "Fix"
+msgstr "اصلاح"
+
+msgid "Improve"
+msgstr "بهبود"
+
+msgid "Tip"
+msgstr "نکته"
+
+msgid "Dimensions"
+msgstr "ابعاد"
+
+msgid "Loading speed"
+msgstr "سرعت بارگذاری"
+
+msgid "Content and accessibility"
+msgstr "محتوا و دسترسی‌پذیری"
+
+msgid "is %1$d px wide but is shown at only about %2$d px."
+msgstr "%1$d پیکسل عرض دارد ولی فقط حدود %2$d پیکسل نمایش داده می‌شود."
+
+msgid "About %d px wide is enough (twice the display width keeps it sharp on high-density screens). Resize the file, or choose a smaller “Image Resolution” in the widget."
+msgstr "عرض حدود %d پیکسل کافی است (دو برابر عرض نمایش، در نمایشگرهای پرتراکم وضوح را حفظ می‌کند). فایل را کوچک کنید یا در ویجت «رزولوشن تصویر» کوچک‌تری انتخاب کنید."
+
+msgid "is only %1$d px wide but is stretched to about %2$d px, so it will look blurry."
+msgstr "فقط %1$d پیکسل عرض دارد ولی تا حدود %2$d پیکسل کشیده شده و تار دیده می‌شود."
+
+msgid "Upload a larger version, about %d px wide, or make the image smaller on the page."
+msgstr "نسخه بزرگ‌تر با عرض حدود %d پیکسل آپلود کنید یا تصویر را در صفحه کوچک‌تر کنید."
+
+msgid "weighs %1$d KB (aim for under %2$d KB)."
+msgstr "%1$d کیلوبایت حجم دارد (هدف: کمتر از %2$d کیلوبایت)."
+
+msgid "Compress the image (for example with Squoosh or an optimization plugin) and save it as WebP."
+msgstr "تصویر را فشرده کنید (مثلاً با Squoosh یا یک افزونه بهینه‌سازی) و به‌صورت WebP ذخیره کنید."
+
+msgid "is a JPEG/PNG file. WebP or AVIF is usually 25–35% smaller with the same quality."
+msgstr "فایل JPEG/PNG است. WebP یا AVIF معمولاً با همان کیفیت ۲۵ تا ۳۵ درصد کوچک‌تر است."
+
+msgid "Convert it to WebP before uploading, or let an image optimization plugin do it."
+msgstr "پیش از آپلود به WebP تبدیلش کنید یا به یک افزونه بهینه‌سازی تصویر بسپارید."
+
+msgid "The background image (%d KB) is also downloaded by phones."
+msgstr "تصویر پس‌زمینه (%d کیلوبایت) روی موبایل هم دانلود می‌شود."
+
+msgid "Switch the editor to the mobile view, open Style → Background and upload a smaller image (about 800 px wide) for phones."
+msgstr "ویرایشگر را روی نمای موبایل بگذارید، به استایل ← پس‌زمینه بروید و تصویر کوچک‌تری (حدود ۸۰۰ پیکسل عرض) برای موبایل بگذارید."
+
+msgid "has no alternative text (alt)."
+msgstr "متن جایگزین (alt) ندارد."
+
+msgid "Open the image in the Media Library and fill in “Alternative Text”: describe the picture in a few words. Search engines and screen readers rely on it."
+msgstr "تصویر را در کتابخانه رسانه باز کنید و «متن جایگزین» را پر کنید: تصویر را در چند کلمه توصیف کنید. موتورهای جستجو و صفحه‌خوان‌ها به آن تکیه می‌کنند."
+
+msgid "has an alt text that looks like a file name."
+msgstr "متن جایگزینش شبیه نام فایل است."
+
+msgid "Replace it with a short description of what the picture shows."
+msgstr "آن را با توصیف کوتاهی از آنچه در تصویر است جایگزین کنید."
+
+msgid "is not in the Media Library, so its size and alt text could not be checked."
+msgstr "در کتابخانه رسانه نیست، پس اندازه و متن جایگزین آن بررسی نشد."
+
+msgid "Upload the image to the Media Library and select it again."
+msgstr "تصویر را در کتابخانه رسانه آپلود کنید و دوباره انتخابش کنید."
+
+msgid "The image"
+msgstr "تصویر"
+
+msgid "%1$d of %2$d images"
+msgstr "%1$d از %2$d تصویر"
+
+msgid "The button has no text."
+msgstr "دکمه متن ندارد."
+
+msgid "Write what the button does, for example “Get a free quote”."
+msgstr "بنویسید دکمه چه کاری می‌کند، مثلاً «دریافت مشاوره رایگان»."
+
+msgid "The button text “%s” does not say where it leads."
+msgstr "متن دکمه «%s» نمی‌گوید به کجا می‌رود."
+
+msgid "Use words that describe the destination, such as “See our pricing”."
+msgstr "از کلماتی استفاده کنید که مقصد را توصیف کنند، مثل «مشاهده قیمت‌ها»."
+
+msgid "The button has no link."
+msgstr "دکمه لینک ندارد."
+
+msgid "Add a URL in the “Link” field, or remove the button."
+msgstr "در فیلد «لینک» یک آدرس بگذارید یا دکمه را حذف کنید."
+
+msgid "The link text “%s” does not say where it leads."
+msgstr "متن لینک «%s» نمی‌گوید به کجا می‌رود."
+
+msgid "Make the link text describe the destination."
+msgstr "متن لینک را طوری بنویسید که مقصد را توصیف کند."
+
+msgid "%d image(s) inside this text have no alt text."
+msgstr "%d تصویر داخل این متن، متن جایگزین ندارند."
+
+msgid "In the text editor click the image and fill in “Alternative text”."
+msgstr "در ویرایشگر متن روی تصویر کلیک کنید و «متن جایگزین» را پر کنید."
+
+msgid "It has a fixed width of %d px, wider than a phone screen (about 375 px), so it can stick out of the page on mobile."
+msgstr "عرض ثابت %d پیکسل دارد که از صفحه موبایل (حدود ۳۷۵ پیکسل) بیشتر است و ممکن است در موبایل از صفحه بیرون بزند."
+
+msgid "Switch the editor to the mobile view and set the width to 100% (or a smaller value)."
+msgstr "ویرایشگر را روی نمای موبایل بگذارید و عرض را ۱۰۰٪ (یا کمتر) تنظیم کنید."
+
+msgid "The minimum height is %d px on every device, which fills more than a whole phone screen."
+msgstr "حداقل ارتفاع در همه دستگاه‌ها %d پیکسل است که از یک صفحه کامل موبایل بیشتر می‌شود."
+
+msgid "In the mobile view set a smaller minimum height (for example 300 px) or switch it to “min-height: auto”."
+msgstr "در نمای موبایل حداقل ارتفاع کمتری بگذارید (مثلاً ۳۰۰ پیکسل) یا آن را روی «min-height: auto» بگذارید."
+
+msgid "The padding is %d px on all devices, which leaves little room for content on a phone."
+msgstr "فاصله داخلی در همه دستگاه‌ها %d پیکسل است و در موبایل جای کمی برای محتوا می‌ماند."
+
+msgid "In the mobile view reduce the padding to about 20–40 px."
+msgstr "در نمای موبایل فاصله داخلی را به حدود ۲۰ تا ۴۰ پیکسل کم کنید."
+
+msgid "The text size is %d px on every device. Long words can overflow a phone screen."
+msgstr "اندازه متن در همه دستگاه‌ها %d پیکسل است. کلمات بلند ممکن است از صفحه موبایل بیرون بزنند."
+
+msgid "In the mobile view set a smaller font size (about 60% of the desktop size)."
+msgstr "در نمای موبایل اندازه فونت کوچک‌تری بگذارید (حدود ۶۰٪ اندازه دسکتاپ)."
+
+msgid "The %d items stay in one row on phones, so they get squeezed or overflow."
+msgstr "این %d مورد در موبایل در یک ردیف می‌مانند و له می‌شوند یا بیرون می‌زنند."
+
+msgid "In the mobile view set the container direction to “Column” (or turn on “Wrap”)."
+msgstr "در نمای موبایل جهت کانتینر را روی «ستون» بگذارید (یا «Wrap» را روشن کنید)."
+
+msgid "Open the section settings → Layout → HTML Tag"
+msgstr "تنظیمات سکشن ← چیدمان ← تگ HTML را باز کنید"
+
+msgid "Open the container settings → Layout → HTML Tag"
+msgstr "تنظیمات کانتینر ← چیدمان ← تگ HTML را باز کنید"
+
+msgid "%1$s and choose “%2$s”."
+msgstr "%1$s و «%2$s» را انتخاب کنید."
+
+msgid "This looks like your site %2$s, but its tag is “%1$s”."
+msgstr "این شبیه %2$s سایت شماست ولی تگ آن «%1$s» است."
+
+msgid "If this is the %s of your site, give it that tag so search engines can tell."
+msgstr "اگر این %s سایت شماست، همان تگ را بدهید تا موتورهای جستجو تشخیص دهند."
+
+msgid "This block is a plain “div”, which tells search engines nothing about it."
+msgstr "این بخش یک «div» ساده است و چیزی به موتورهای جستجو نمی‌گوید."
+
+msgid "%s and choose “section” (or “article” / “aside” if that fits better)."
+msgstr "%s و «section» را انتخاب کنید (یا «article» / «aside» اگر مناسب‌تر است)."
+
+msgid "There is an empty H%d heading."
+msgstr "یک عنوان H%d خالی وجود دارد."
+
+msgid "Write the heading text, or delete the widget if it is only used for spacing."
+msgstr "متن عنوان را بنویسید یا اگر فقط برای فاصله استفاده شده ویجت را حذف کنید."
+
+msgid "A second H1 (“%s”). A page should have only one."
+msgstr "H1 دوم («%s»). هر صفحه باید فقط یکی داشته باشد."
+
+msgid "In the Heading widget set “HTML Tag” to H2 (use the Style tab if you only want it bigger)."
+msgstr "در ویجت عنوان «تگ HTML» را روی H2 بگذارید (اگر فقط بزرگ‌تر می‌خواهید از تب استایل استفاده کنید)."
+
+msgid "The outline jumps from H%1$d to H%2$d."
+msgstr "ساختار عنوان‌ها از H%1$d به H%2$d می‌پرد."
+
+msgid "Use H%d here, and style it bigger or smaller in the Style tab."
+msgstr "اینجا از H%d استفاده کنید و اندازه را در تب استایل تنظیم کنید."
+
+msgid "This heading is %d characters long. Short headings (under about 70) read and rank better."
+msgstr "این عنوان %d کاراکتر است. عنوان‌های کوتاه (زیر حدود ۷۰) بهتر خوانده می‌شوند و رتبه بهتری می‌گیرند."
+
+msgid "Move the extra words into a paragraph under the heading."
+msgstr "کلمات اضافه را به یک پاراگراف زیر عنوان ببرید."
+
+msgid "The page has no H1 heading."
+msgstr "صفحه عنوان H1 ندارد."
+
+msgid "Add one Heading widget with “HTML Tag” = H1, usually in the first big section, describing what the page is about."
+msgstr "یک ویجت عنوان با «تگ HTML» = H1 اضافه کنید، معمولاً در اولین سکشن بزرگ، که موضوع صفحه را بگوید."
+
+msgid "The H1 is inside the site header. The H1 should be the title of the page, not the logo text."
+msgstr "H1 داخل هدر سایت است. H1 باید عنوان صفحه باشد، نه متن لوگو."
+
+msgid "Change this heading to a normal tag and put the H1 in the first content section."
+msgstr "این عنوان را به تگ عادی تغییر دهید و H1 را در اولین سکشن محتوا بگذارید."
+
+msgid "The slider holds %d images, and every one is downloaded even if nobody scrolls to it."
+msgstr "اسلایدر %d تصویر دارد و همه دانلود می‌شوند حتی اگر کسی تا آن‌ها نرود."
+
+msgid "Keep it to 3–5 slides, or link to a gallery page for the rest."
+msgstr "آن را به ۳ تا ۵ اسلاید محدود کنید یا برای بقیه به صفحه گالری لینک بدهید."
+
+msgid "The video player loads with the page, which adds several hundred KB of scripts."
+msgstr "پخش‌کننده ویدیو همراه صفحه بارگذاری می‌شود و چند صد کیلوبایت اسکریپت اضافه می‌کند."
+
+msgid "In the Video widget turn on “Lazy Load” so it loads only when the visitor presses play."
+msgstr "در ویجت ویدیو «بارگذاری تنبل» را روشن کنید تا فقط با زدن پخش بارگذاری شود."
+
+msgid "An embedded map is heavy. Keep it low on the page so it does not delay the first screen."
+msgstr "نقشه جاسازی‌شده سنگین است. آن را پایین صفحه بگذارید تا اولین صفحه نمایش را کند نکند."
+
+msgid "Place it in a section further down, or replace it with a static image that links to the map."
+msgstr "آن را در سکشنی پایین‌تر بگذارید یا با تصویر ثابتی که به نقشه لینک می‌دهد جایگزین کنید."
+
+msgid "An iframe in this HTML loads immediately."
+msgstr "یک iframe در این HTML بلافاصله بارگذاری می‌شود."
+
+msgid "Add loading=\"lazy\" to the iframe tag."
+msgstr "به تگ iframe مقدار loading=\"lazy\" را اضافه کنید."
+
+msgid "The images in this block add up to about %s."
+msgstr "تصاویر این بخش روی هم حدود %s می‌شوند."
+
+msgid "Aim for under 500 KB per block: compress the largest images first."
+msgstr "هدف: کمتر از ۵۰۰ کیلوبایت برای هر بخش؛ ابتدا بزرگ‌ترین تصاویر را فشرده کنید."
+
+msgid "A background video downloads on every visit, even on phones."
+msgstr "ویدیوی پس‌زمینه در هر بازدید دانلود می‌شود، حتی در موبایل."
+
+msgid "Use a compressed poster image instead, or keep the video under 2 MB and add a mobile fallback image."
+msgstr "به‌جای آن از تصویر پوستر فشرده استفاده کنید یا ویدیو را زیر ۲ مگابایت نگه دارید و برای موبایل تصویر جایگزین بگذارید."
+
+msgid "%d elements here are animated. Many animations delay interaction and can hurt the “Cumulative Layout Shift” score."
+msgstr "%d المان اینجا انیمیشن دارند. انیمیشن‌های زیاد تعامل را کند می‌کنند و به نمره «Cumulative Layout Shift» آسیب می‌زنند."
+
+msgid "Keep animations for the one or two things that matter."
+msgstr "انیمیشن را برای یکی دو چیز مهم نگه دارید."
+
+msgid "Containers are nested %1$d levels deep (aim for %2$d or fewer). Deep nesting makes the page heavier to build and style."
+msgstr "کانتینرها %1$d سطح تو در تو هستند (هدف: %2$d یا کمتر). تو در تویی زیاد ساخت و استایل صفحه را سنگین می‌کند."
+
+msgid "Remove containers that only wrap a single element, or use the parent’s padding and gap instead."
+msgstr "کانتینرهایی را که فقط یک المان را در بر گرفته‌اند حذف کنید یا به‌جای آن‌ها از فاصله داخلی و گپ والد استفاده کنید."
+
+msgid "This block has %d widgets, which makes the page heavy."
+msgstr "این بخش %d ویجت دارد که صفحه را سنگین می‌کند."
+
+msgid "Split the content into several pages, or use a Loop Grid instead of copying widgets."
+msgstr "محتوا را به چند صفحه تقسیم کنید یا به‌جای کپی ویجت‌ها از Loop Grid استفاده کنید."
+
+msgid "SEO Assistant needs PHP %1$s or newer. Your server runs PHP %2$s, so the plugin is switched off."
+msgstr "دستیار سئو به PHP نسخه %1$s یا بالاتر نیاز دارد. سرور شما PHP %2$s دارد، پس افزونه خاموش شده است."
+
+msgid "SEO Assistant by Nazari Technologies"
+msgstr "دستیار سئو"
+
+msgid "Right-click any section in the Elementor editor and get a clear, ordered review of its HTML tags, image sizes and resolution, mobile fit and loading speed, with a score and a one-click re-check."
+msgstr "روی هر سکشن در ویرایشگر المنتور راست‌کلیک کنید و بررسی مرتب و روشن تگ‌های HTML، اندازه و رزولوشن تصاویر، تناسب با موبایل و سرعت بارگذاری را همراه با نمره و بررسی مجدد با یک کلیک بگیرید."
