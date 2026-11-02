@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       SEO Assistant by Nazari Technologies
  * Description:       Right-click any section in the Elementor editor and get a clear, ordered review of its HTML tags, image sizes and resolution, mobile fit and loading speed, with a score and a one-click re-check.
- * Version:           1.0.1
+ * Version:           1.0.0
  * Requires at least: 6.5
  * Requires PHP:      8.2
  * Requires Plugins:  elementor
@@ -18,7 +18,7 @@ declare( strict_types=1 );
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NZSA_VERSION', '1.0.1' );
+define( 'NZSA_VERSION', '1.0.0' );
 define( 'NZSA_FILE', __FILE__ );
 define( 'NZSA_PATH', plugin_dir_path( __FILE__ ) );
 define( 'NZSA_URL', plugin_dir_url( __FILE__ ) );

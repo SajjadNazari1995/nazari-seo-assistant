@@ -499,24 +499,9 @@
 		return behaviors;
 	}
 
-	/*
-	 * Register as early as Elementor allows. `elementor.hooks` only exists after the
-	 * editor starts, and `elementor:init` fires AFTER the first document has been
-	 * rendered, so views built before it would never get the menu item. `elementor:loaded`
-	 * fires before the document opens. The flag keeps the registration to once.
-	 */
-	var registered = false;
-
-	function register() {
-		if ( registered || ! window.elementor || ! elementor.hooks ) {
-			return;
-		}
-		registered = true;
+	$( window ).on( 'elementor:init', function () {
 		elementor.hooks.addFilter( 'elements/base/behaviors', addMenuItem );
-	}
-
-	register();
-	$( window ).on( 'elementor:loaded elementor:init', register );
+	} );
 
 	// Small hook for tests and for other plugins.
 	window.NZSA_EDITOR_API = { review: review, close: closeWindow };

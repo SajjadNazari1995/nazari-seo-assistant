@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.2
 Requires Plugins: elementor
-Stable tag: 1.0.1
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,16 +63,10 @@ English and Persian (fa_IR), with RTL support.
 
 == Changelog ==
 
-= 1.0.1 =
-* Fix: the "Review structure" right-click item now appears on elements already on the page when the editor opens.
-
 = 1.0.0 =
 * First release: right-click "Review structure" in the Elementor editor, ordered guidance, scored summary and Check again.
 
 == Upgrade Notice ==
-
-= 1.0.1 =
-Fixes the missing right-click menu item in the Elementor editor.
 
 = 1.0.0 =
 First release.

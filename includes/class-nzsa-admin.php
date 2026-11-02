@@ -16,7 +16,7 @@ final class NZSA_Admin {
 	public static function init(): void {
 		add_action( 'admin_menu', array( __CLASS__, 'menu' ), 5 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue' ) );
-		add_action( 'admin_head', array( __CLASS__, 'menu_icon_css' ) );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'menu_icon_css' ) );
 		add_action( 'in_admin_header', array( __CLASS__, 'brand_bar' ) );
 		add_action( 'admin_post_nzsa_save_settings', array( __CLASS__, 'handle_settings' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( NZSA_FILE ), array( __CLASS__, 'action_links' ) );
@@ -99,23 +99,11 @@ final class NZSA_Admin {
 	}
 
 	public static function menu_icon_css(): void {
-		$url = esc_url( NZSA_URL . 'assets/images/menu-icon.png' );
-		?>
-		<style id="nzsa-menu-icon">
-			#adminmenu .toplevel_page_nazari-seo-assistant div.wp-menu-image:before {
-				content: "";
-				display: block;
-				width: 20px;
-				height: 20px;
-				margin: 0 auto;
-				padding: 7px 0;
-				box-sizing: content-box;
-				background-color: currentColor;
-				-webkit-mask: url( "<?php echo $url; // phpcs:ignore WordPress.Security.EscapeOutput -- escaped above. ?>" ) center / 20px 20px no-repeat content-box;
-				mask: url( "<?php echo $url; // phpcs:ignore WordPress.Security.EscapeOutput -- escaped above. ?>" ) center / 20px 20px no-repeat content-box;
-			}
-		</style>
-		<?php
+		$url = esc_url_raw( NZSA_URL . 'assets/images/menu-icon.png' );
+		$css = '#adminmenu .toplevel_page_nazari-seo-assistant div.wp-menu-image:before{content:"";display:block;width:20px;height:20px;margin:0 auto;padding:7px 0;box-sizing:content-box;background-color:currentColor;-webkit-mask:url("' . $url . '") center / 20px 20px no-repeat content-box;mask:url("' . $url . '") center / 20px 20px no-repeat content-box;}';
+		wp_register_style( 'nzsa-menu-icon', false, array(), NZSA_VERSION );
+		wp_enqueue_style( 'nzsa-menu-icon' );
+		wp_add_inline_style( 'nzsa-menu-icon', $css );
 	}
 
 	public static function enqueue(): void {
@@ -358,9 +346,6 @@ final class NZSA_Admin {
 
 	private static function render_about_tab(): void {
 		$changelog = array(
-			'1.0.1' => array(
-				'Fix: the Review structure right-click item now appears on elements already on the page when the editor opens.',
-			),
 			'1.0.0' => array(
 				__( 'First release: right-click Review structure in the Elementor editor.', 'nazari-seo-assistant' ),
 				__( 'Ordered guidance per element, a scored summary and a Check again button.', 'nazari-seo-assistant' ),
