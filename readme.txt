@@ -1,21 +1,21 @@
-=== SEO Assistant by Nazari Technologies ===
+=== SEO Assistant for Elementor ===
 Contributors: sajjadnazari
 Tags: elementor, seo, image optimization, html tags, page speed
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.2
 Requires Plugins: elementor
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-SEO Assistant (دستیار سئو): right-click a section in the Elementor editor and get an ordered, scored review of HTML tags, image sizes, mobile fit and speed.
+SEO Assistant for Elementor (دستیار سئو المنتور): right-click a section in the Elementor editor and get an ordered, scored review of HTML tags, image sizes, mobile fit and speed.
 
 == Description ==
 
 SEO Assistant helps you design pages correctly the first time. In the Elementor editor, right-click any section, container or widget and choose **Review structure**. A window opens, like Elementor's Navigator, and lists the structure in order. Under each element it tells you exactly what to change.
 
-**دستیار سئو (فارسی):** در ویرایشگر المنتور روی هر سکشن راست‌کلیک کنید و «بررسی ساختار» را بزنید. پنجره‌ای راهنمای مرتب تگ HTML، اندازه و رزولوشن تصویر، تناسب با موبایل و سرعت را همراه با نمره نشان می‌دهد. رابط افزونه فارسی و راست‌چین است.
+**دستیار سئو المنتور (فارسی):** در ویرایشگر المنتور روی هر سکشن راست‌کلیک کنید و «بررسی ساختار» را بزنید. پنجره‌ای راهنمای مرتب تگ HTML، اندازه و رزولوشن تصویر، تناسب با موبایل و سرعت را همراه با نمره نشان می‌دهد. رابط افزونه فارسی و راست‌چین است.
 
 **What it checks**
 
@@ -38,7 +38,7 @@ SEO Assistant helps you design pages correctly the first time. In the Elementor 
 * Add your own checks with the `nzsa_rules` filter.
 * Nothing is sent to any outside service. The review runs on your own site.
 
-Sizes shown on screen are estimated from your Elementor settings, not measured in the browser, so treat them as a guide.
+In the desktop view, sizes are measured in the editor preview when the window is wide enough. Otherwise they are estimated from your Elementor settings, so treat them as a guide.
 
 == Installation ==
 
@@ -63,16 +63,31 @@ English and Persian (fa_IR), with RTL support.
 
 == Changelog ==
 
+= 1.1.0 =
+* New: page roles. The review knows if the page is the home page, a post or product, an archive, or a header, footer or popup template, and adjusts its checks. Detected automatically, and you can change it in the window.
+* New: sizes are measured in the editor preview instead of estimated. In tablet and mobile view, elements wider than the screen are reported.
+* New: Core Web Vitals hints. The first image on the page (LCP: weight, background image, entrance animation) and iframes or images without a size (CLS).
+* New setting: "Top image: improve above (KB)".
+
+= 1.0.1 =
+* Fix: the "Review structure" right-click item now appears on elements already on the page when the editor opens.
+
 = 1.0.0 =
 * First release: right-click "Review structure" in the Elementor editor, ordered guidance, scored summary and Check again.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Adds page roles, measured sizes and Core Web Vitals checks.
+
+= 1.0.1 =
+Fixes the missing right-click menu item in the Elementor editor.
 
 = 1.0.0 =
 First release.
 
 == Screenshots ==
 
-1. The review window in the Elementor editor.
-2. The dashboard.
-3. Settings.
+1. Reviewing the whole page: findings per element, in order, with what to do.
+2. Reviewing one element, with the first-image (LCP) hint.
+3. A footer template: the review knows the page role and adjusts its checks.

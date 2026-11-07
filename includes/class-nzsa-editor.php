@@ -27,40 +27,62 @@ final class NZSA_Editor {
 	}
 
 	/**
+	 * @return array<int,array{key:string,label:string}>
+	 */
+	private static function roles(): array {
+		$list = array();
+		foreach ( NZSA_Roles::labels() as $key => $label ) {
+			$list[] = array(
+				'key'   => $key,
+				'label' => $label,
+			);
+		}
+		return $list;
+	}
+
+	/**
 	 * @return array<string,mixed>
 	 */
 	public static function config(): array {
 		return array(
 			'endpoint' => esc_url_raw( rest_url( NZSA_Rest::NAMESPACE . '/analyze' ) ),
 			'nonce'    => wp_create_nonce( 'wp_rest' ),
+			'roles'    => self::roles(),
 			'i18n'     => array(
-				'menu'        => __( 'Review structure', 'nazari-seo-assistant' ),
-				'title'       => __( 'Structure review', 'nazari-seo-assistant' ),
-				'recheck'     => __( 'Check again', 'nazari-seo-assistant' ),
-				'close'       => __( 'Close', 'nazari-seo-assistant' ),
-				'checking'    => __( 'Checking…', 'nazari-seo-assistant' ),
-				'ok'          => __( 'No problems found here.', 'nazari-seo-assistant' ),
-				'summary'     => __( 'Summary', 'nazari-seo-assistant' ),
-				'score'       => __( 'Score', 'nazari-seo-assistant' ),
-				'outOf'       => __( 'out of', 'nazari-seo-assistant' ),
-				'priorities'  => __( 'Fix these first', 'nazari-seo-assistant' ),
-				'nothingTop'  => __( 'Nothing urgent. Great work!', 'nazari-seo-assistant' ),
-				'locate'      => __( 'Show in editor', 'nazari-seo-assistant' ),
-				'error'       => __( 'The review could not be completed. Please try again.', 'nazari-seo-assistant' ),
+				'menu'        => __( 'Review structure', 'seo-assistant-for-elementor' ),
+				'title'       => __( 'Structure review', 'seo-assistant-for-elementor' ),
+				'recheck'     => __( 'Check again', 'seo-assistant-for-elementor' ),
+				'close'       => __( 'Close', 'seo-assistant-for-elementor' ),
+				'checking'    => __( 'Checking…', 'seo-assistant-for-elementor' ),
+				'ok'          => __( 'No problems found here.', 'seo-assistant-for-elementor' ),
+				'summary'     => __( 'Summary', 'seo-assistant-for-elementor' ),
+				'score'       => __( 'Score', 'seo-assistant-for-elementor' ),
+				'outOf'       => __( 'out of', 'seo-assistant-for-elementor' ),
+				'priorities'  => __( 'Fix these first', 'seo-assistant-for-elementor' ),
+				'nothingTop'  => __( 'Nothing urgent. Great work!', 'seo-assistant-for-elementor' ),
+				'locate'      => __( 'Show in editor', 'seo-assistant-for-elementor' ),
+				'error'       => __( 'The review could not be completed. Please try again.', 'seo-assistant-for-elementor' ),
 				/* translators: 1: number of elements, 2: number of images, 3: image weight in KB */
-				'stats'       => __( 'Elements: %1$d · Images: %2$d · Image weight: %3$d KB', 'nazari-seo-assistant' ),
-				'fix'         => __( 'What to do', 'nazari-seo-assistant' ),
-				'section'     => __( 'Section', 'nazari-seo-assistant' ),
-				'container'   => __( 'Container', 'nazari-seo-assistant' ),
-				'column'      => __( 'Column', 'nazari-seo-assistant' ),
-				'widget'      => __( 'Widget', 'nazari-seo-assistant' ),
-				'excellent'   => __( 'Excellent', 'nazari-seo-assistant' ),
-				'good'        => __( 'Good', 'nazari-seo-assistant' ),
-				'needsWork'   => __( 'Needs work', 'nazari-seo-assistant' ),
-				'poor'        => __( 'Poor', 'nazari-seo-assistant' ),
-				'scopeElement' => __( 'This element', 'nazari-seo-assistant' ),
-				'scopePage'   => __( 'Whole page', 'nazari-seo-assistant' ),
-				'showAll'     => __( 'Show elements without problems', 'nazari-seo-assistant' ),
+				'stats'       => __( 'Elements: %1$d · Images: %2$d · Image weight: %3$d KB', 'seo-assistant-for-elementor' ),
+				'fix'         => __( 'What to do', 'seo-assistant-for-elementor' ),
+				'section'     => __( 'Section', 'seo-assistant-for-elementor' ),
+				'container'   => __( 'Container', 'seo-assistant-for-elementor' ),
+				'column'      => __( 'Column', 'seo-assistant-for-elementor' ),
+				'widget'      => __( 'Widget', 'seo-assistant-for-elementor' ),
+				'excellent'   => __( 'Excellent', 'seo-assistant-for-elementor' ),
+				'good'        => __( 'Good', 'seo-assistant-for-elementor' ),
+				'needsWork'   => __( 'Needs work', 'seo-assistant-for-elementor' ),
+				'poor'        => __( 'Poor', 'seo-assistant-for-elementor' ),
+				'scopeElement' => __( 'This element', 'seo-assistant-for-elementor' ),
+				'scopePage'   => __( 'Whole page', 'seo-assistant-for-elementor' ),
+				'showAll'     => __( 'Show elements without problems', 'seo-assistant-for-elementor' ),
+				'role'        => __( 'This page is a', 'seo-assistant-for-elementor' ),
+				/* translators: %s: detected page role, for example "Home page" */
+				'roleAuto'    => __( 'Automatic: %s', 'seo-assistant-for-elementor' ),
+				'measured'    => __( 'Sizes were measured in the editor preview.', 'seo-assistant-for-elementor' ),
+				'estimated'   => __( 'Sizes are estimated from your Elementor settings.', 'seo-assistant-for-elementor' ),
+				'measureDevice' => __( 'Sizes are estimated. Measured sizes are used in the desktop view.', 'seo-assistant-for-elementor' ),
+				'measureNarrow' => __( 'Sizes are estimated because the editor window is much narrower than the desktop width set in the plugin settings. Close the side panels or widen the window.', 'seo-assistant-for-elementor' ),
 			),
 		);
 	}

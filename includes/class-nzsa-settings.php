@@ -17,6 +17,7 @@ final class NZSA_Settings {
 		return array(
 			'image_warn_kb'       => 200,
 			'image_error_kb'      => 500,
+			'lcp_kb'              => 150,
 			'retina_factor'       => 2.0,
 			'max_dom_depth'       => 6,
 			'viewport'            => 1440,
@@ -55,6 +56,7 @@ final class NZSA_Settings {
 		return array(
 			'image_warn_kb'       => $warn,
 			'image_error_kb'      => $error,
+			'lcp_kb'              => self::clamp_int( $input['lcp_kb'] ?? $d['lcp_kb'], 30, 2000 ),
 			'retina_factor'       => max( 1.0, min( 3.0, round( $retina, 1 ) ) ),
 			'max_dom_depth'       => self::clamp_int( $input['max_dom_depth'] ?? $d['max_dom_depth'], 3, 15 ),
 			'viewport'            => self::clamp_int( $input['viewport'] ?? $d['viewport'], 1024, 2560 ),

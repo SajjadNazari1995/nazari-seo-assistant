@@ -18,7 +18,8 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 	public function check( NZSA_Context $ctx, NZSA_Node $node ): array {
 		$issues = array();
 
-		if ( 0 === $node->depth && in_array( $node->type, array( 'section', 'container' ), true ) ) {
+		// Popups are free-standing boxes: any wrapper tag is fine.
+		if ( 0 === $node->depth && in_array( $node->type, array( 'section', 'container' ), true ) && 'popup' !== $ctx->role ) {
 			array_push( $issues, ...$this->landmark( $ctx, $node ) );
 		}
 
@@ -42,18 +43,19 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 		}
 
 		$where = 'section' === $node->type
-			? __( 'Open the section settings → Layout → HTML Tag', 'nazari-seo-assistant' )
-			: __( 'Open the container settings → Layout → HTML Tag', 'nazari-seo-assistant' );
+			? __( 'Open the section settings → Layout → HTML Tag', 'seo-assistant-for-elementor' )
+			: __( 'Open the container settings → Layout → HTML Tag', 'seo-assistant-for-elementor' );
 
 		if ( 'header' === $role || 'footer' === $role ) {
 			$fix = sprintf(
 				/* translators: 1: path in the Elementor panel, 2: HTML tag name */
-				__( '%1$s and choose “%2$s”.', 'nazari-seo-assistant' ),
+				__( '%1$s and choose “%2$s”.', 'seo-assistant-for-elementor' ),
 				$where,
 				$role
 			);
 
 			if ( $sure ) {
+				$by_role = $ctx->role === $role;
 				return array(
 					$this->issue(
 						$node,
@@ -61,8 +63,11 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 						NZSA_Severity::Warning,
 						$role,
 						sprintf(
-							/* translators: 1: current HTML tag, 2: expected HTML tag */
-							__( 'This looks like your site %2$s, but its tag is “%1$s”.', 'nazari-seo-assistant' ),
+							$by_role
+								/* translators: 1: current HTML tag, 2: expected HTML tag (header or footer) */
+								? __( 'This is your site %2$s template, but its tag is “%1$s”.', 'seo-assistant-for-elementor' )
+								/* translators: 1: current HTML tag, 2: expected HTML tag */
+								: __( 'This looks like your site %2$s, but its tag is “%1$s”.', 'seo-assistant-for-elementor' ),
 							$tag,
 							$role
 						),
@@ -81,7 +86,7 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 					$role . '_maybe',
 					sprintf(
 						/* translators: %s: header or footer */
-						__( 'If this is the %s of your site, give it that tag so search engines can tell.', 'nazari-seo-assistant' ),
+						__( 'If this is the %s of your site, give it that tag so search engines can tell.', 'seo-assistant-for-elementor' ),
 						$role
 					),
 					$fix,
@@ -98,10 +103,10 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 					NZSA_Category::Tags,
 					NZSA_Severity::Warning,
 					'generic',
-					__( 'This block is a plain “div”, which tells search engines nothing about it.', 'nazari-seo-assistant' ),
+					__( 'This block is a plain “div”, which tells search engines nothing about it.', 'seo-assistant-for-elementor' ),
 					sprintf(
 						/* translators: %s: path in the Elementor panel */
-						__( '%s and choose “section” (or “article” / “aside” if that fits better).', 'nazari-seo-assistant' ),
+						__( '%s and choose “section” (or “article” / “aside” if that fits better).', 'seo-assistant-for-elementor' ),
 						$where
 					),
 					array( 'tag' => $tag, 'expected' => 'section' )
@@ -118,6 +123,11 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 	 * @return array{0:string,1:bool} Role (header, footer or section) and whether the content confirms it.
 	 */
 	private function role( NZSA_Context $ctx, NZSA_Node $node ): array {
+		// A header or footer template is that role for certain, wherever the block sits.
+		if ( 'header' === $ctx->role || 'footer' === $ctx->role ) {
+			return array( $ctx->role, true );
+		}
+
 		list( $index, $total ) = $ctx->position_of( $node );
 		$widgets               = array();
 		$text                  = '';
@@ -141,10 +151,11 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 		if ( $total > 1 && $index === $total - 1 && $has_footer_cue ) {
 			return array( 'footer', true );
 		}
-		if ( 0 === $index && $total > 1 ) {
+		// When the site has its own header / footer template, the first / last block of a page is not it.
+		if ( 0 === $index && $total > 1 && ! NZSA_Roles::site_has_template( 'header' ) ) {
 			return array( 'header', false );
 		}
-		if ( $total > 1 && $index === $total - 1 ) {
+		if ( $total > 1 && $index === $total - 1 && ! NZSA_Roles::site_has_template( 'footer' ) ) {
 			return array( 'footer', false );
 		}
 
@@ -161,6 +172,7 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 		$headings = $ctx->headings();
 		$h1_seen  = 0;
 		$previous = 0;
+		$fragment = $ctx->is_fragment();
 
 		foreach ( $headings as $heading ) {
 			$node  = $heading['node'];
@@ -175,17 +187,31 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 					'empty',
 					sprintf(
 						/* translators: %d: heading level number */
-						__( 'There is an empty H%d heading.', 'nazari-seo-assistant' ),
+						__( 'There is an empty H%d heading.', 'seo-assistant-for-elementor' ),
 						$level
 					),
-					__( 'Write the heading text, or delete the widget if it is only used for spacing.', 'nazari-seo-assistant' )
+					__( 'Write the heading text, or delete the widget if it is only used for spacing.', 'seo-assistant-for-elementor' )
 				);
 				continue;
 			}
 
 			if ( 1 === $level ) {
 				++$h1_seen;
-				if ( $h1_seen > 1 ) {
+				if ( $fragment && 1 === $h1_seen ) {
+					$issues[] = $this->issue(
+						$node,
+						NZSA_Category::Tags,
+						NZSA_Severity::Warning,
+						'h1_template',
+						sprintf(
+							/* translators: %s: template kind, for example "footer template" */
+							__( 'A %s should not contain an H1. It repeats on many pages, and each page needs its own single H1.', 'seo-assistant-for-elementor' ),
+							mb_strtolower( NZSA_Roles::label( $ctx->role ) )
+						),
+						__( 'Set the heading’s “HTML Tag” to div, p or H2–H6 and make it bigger in the Style tab if you need to.', 'seo-assistant-for-elementor' )
+					);
+				}
+				if ( $h1_seen > 1 && ! $fragment ) {
 					$issues[] = $this->issue(
 						$node,
 						NZSA_Category::Tags,
@@ -193,15 +219,15 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 						'h1_many',
 						sprintf(
 							/* translators: %s: heading text */
-							__( 'A second H1 (“%s”). A page should have only one.', 'nazari-seo-assistant' ),
+							__( 'A second H1 (“%s”). A page should have only one.', 'seo-assistant-for-elementor' ),
 							NZSA_Context::excerpt( $text )
 						),
-						__( 'In the Heading widget set “HTML Tag” to H2 (use the Style tab if you only want it bigger).', 'nazari-seo-assistant' )
+						__( 'In the Heading widget set “HTML Tag” to H2 (use the Style tab if you only want it bigger).', 'seo-assistant-for-elementor' )
 					);
 				}
 			}
 
-			if ( $previous > 0 && $level > $previous + 1 ) {
+			if ( $previous > 0 && $level > $previous + 1 && ! $fragment ) {
 				$issues[] = $this->issue(
 					$node,
 					NZSA_Category::Tags,
@@ -209,13 +235,13 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 					'skip',
 					sprintf(
 						/* translators: 1: previous heading level, 2: this heading level */
-						__( 'The outline jumps from H%1$d to H%2$d.', 'nazari-seo-assistant' ),
+						__( 'The outline jumps from H%1$d to H%2$d.', 'seo-assistant-for-elementor' ),
 						$previous,
 						$level
 					),
 					sprintf(
 						/* translators: %d: suggested heading level */
-						__( 'Use H%d here, and style it bigger or smaller in the Style tab.', 'nazari-seo-assistant' ),
+						__( 'Use H%d here, and style it bigger or smaller in the Style tab.', 'seo-assistant-for-elementor' ),
 						$previous + 1
 					),
 					array( 'from' => $previous, 'to' => $level )
@@ -230,10 +256,10 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 					'long',
 					sprintf(
 						/* translators: %d: number of characters */
-						__( 'This heading is %d characters long. Short headings (under about 70) read and rank better.', 'nazari-seo-assistant' ),
+						__( 'This heading is %d characters long. Short headings (under about 70) read and rank better.', 'seo-assistant-for-elementor' ),
 						mb_strlen( $text )
 					),
-					__( 'Move the extra words into a paragraph under the heading.', 'nazari-seo-assistant' )
+					__( 'Move the extra words into a paragraph under the heading.', 'seo-assistant-for-elementor' )
 				);
 			}
 
@@ -241,19 +267,19 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 		}
 
 		// Whole page: there must be exactly one H1.
-		if ( 'page' === $ctx->scope && 0 === $h1_seen && $ctx->roots ) {
+		if ( 'page' === $ctx->scope && 0 === $h1_seen && $ctx->roots && ! $fragment ) {
 			$issues[] = $this->issue(
 				$ctx->roots[0],
 				NZSA_Category::Tags,
 				NZSA_Severity::Error,
 				'h1_missing',
-				__( 'The page has no H1 heading.', 'nazari-seo-assistant' ),
-				__( 'Add one Heading widget with “HTML Tag” = H1, usually in the first big section, describing what the page is about.', 'nazari-seo-assistant' )
+				__( 'The page has no H1 heading.', 'seo-assistant-for-elementor' ),
+				__( 'Add one Heading widget with “HTML Tag” = H1, usually in the first big section, describing what the page is about.', 'seo-assistant-for-elementor' )
 			);
 		}
 
 		// A header block with an H1 is usually the logo text, not the page title.
-		if ( $h1_seen >= 1 ) {
+		if ( $h1_seen >= 1 && ! $fragment ) {
 			foreach ( $headings as $heading ) {
 				if ( 1 !== $heading['level'] || '' === $heading['text'] ) {
 					continue;
@@ -268,8 +294,8 @@ final class NZSA_Rule_Tags extends NZSA_Rule {
 						NZSA_Category::Tags,
 						NZSA_Severity::Warning,
 						'h1_header',
-						__( 'The H1 is inside the site header. The H1 should be the title of the page, not the logo text.', 'nazari-seo-assistant' ),
-						__( 'Change this heading to a normal tag and put the H1 in the first content section.', 'nazari-seo-assistant' )
+						__( 'The H1 is inside the site header. The H1 should be the title of the page, not the logo text.', 'seo-assistant-for-elementor' ),
+						__( 'Change this heading to a normal tag and put the H1 in the first content section.', 'seo-assistant-for-elementor' )
 					);
 					break;
 				}

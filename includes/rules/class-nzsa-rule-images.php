@@ -86,13 +86,13 @@ final class NZSA_Rule_Images extends NZSA_Rule {
 				'oversize',
 				$this->count_prefix( count( $too_big ), $total ) . sprintf(
 					/* translators: 1: image width in px, 2: width it is shown at in px */
-					__( 'is %1$d px wide but is shown at only about %2$d px.', 'nazari-seo-assistant' ),
+					__( 'is %1$d px wide but is shown at only about %2$d px.', 'seo-assistant-for-elementor' ),
 					$first['w'],
 					(int) round( $first['display'] )
 				),
 				sprintf(
 					/* translators: %d: recommended image width in px */
-					__( 'About %d px wide is enough (twice the display width keeps it sharp on high-density screens). Resize the file, or choose a smaller “Image Resolution” in the widget.', 'nazari-seo-assistant' ),
+					__( 'About %d px wide is enough (twice the display width keeps it sharp on high-density screens). Resize the file, or choose a smaller “Image Resolution” in the widget.', 'seo-assistant-for-elementor' ),
 					$rec_w
 				),
 				array( 'width' => $first['w'], 'display' => (int) round( $first['display'] ), 'recommended' => $rec_w )
@@ -109,13 +109,13 @@ final class NZSA_Rule_Images extends NZSA_Rule {
 				'undersize',
 				$this->count_prefix( count( $too_small ), $total ) . sprintf(
 					/* translators: 1: image width in px, 2: width it is shown at in px */
-					__( 'is only %1$d px wide but is stretched to about %2$d px, so it will look blurry.', 'nazari-seo-assistant' ),
+					__( 'is only %1$d px wide but is stretched to about %2$d px, so it will look blurry.', 'seo-assistant-for-elementor' ),
 					$first['w'],
 					(int) round( $first['display'] )
 				),
 				sprintf(
 					/* translators: %d: recommended image width in px */
-					__( 'Upload a larger version, about %d px wide, or make the image smaller on the page.', 'nazari-seo-assistant' ),
+					__( 'Upload a larger version, about %d px wide, or make the image smaller on the page.', 'seo-assistant-for-elementor' ),
 					$rec_w
 				),
 				array( 'width' => $first['w'], 'display' => (int) round( $first['display'] ), 'recommended' => $rec_w )
@@ -132,11 +132,11 @@ final class NZSA_Rule_Images extends NZSA_Rule {
 				'weight',
 				$this->count_prefix( count( $heavy ), $total ) . sprintf(
 					/* translators: 1: file size in KB, 2: recommended maximum in KB */
-					__( 'weighs %1$d KB (aim for under %2$d KB).', 'nazari-seo-assistant' ),
+					__( 'weighs %1$d KB (aim for under %2$d KB).', 'seo-assistant-for-elementor' ),
 					$top,
 					$warn_kb
 				),
-				__( 'Compress the image (for example with Squoosh or an optimization plugin) and save it as WebP.', 'nazari-seo-assistant' ),
+				__( 'Compress the image (for example with Squoosh or an optimization plugin) and save it as WebP.', 'seo-assistant-for-elementor' ),
 				array( 'kb' => $top, 'limit' => $warn_kb )
 			);
 		}
@@ -147,8 +147,8 @@ final class NZSA_Rule_Images extends NZSA_Rule {
 				NZSA_Category::Speed,
 				NZSA_Severity::Info,
 				'format',
-				$this->count_prefix( count( $legacy ), $total ) . __( 'is a JPEG/PNG file. WebP or AVIF is usually 25–35% smaller with the same quality.', 'nazari-seo-assistant' ),
-				__( 'Convert it to WebP before uploading, or let an image optimization plugin do it.', 'nazari-seo-assistant' )
+				$this->count_prefix( count( $legacy ), $total ) . __( 'is a JPEG/PNG file. WebP or AVIF is usually 25–35% smaller with the same quality.', 'seo-assistant-for-elementor' ),
+				__( 'Convert it to WebP before uploading, or let an image optimization plugin do it.', 'seo-assistant-for-elementor' )
 			);
 		}
 
@@ -160,10 +160,10 @@ final class NZSA_Rule_Images extends NZSA_Rule {
 				'mobile_bg',
 				sprintf(
 					/* translators: %d: file size in KB */
-					__( 'The background image (%d KB) is also downloaded by phones.', 'nazari-seo-assistant' ),
+					__( 'The background image (%d KB) is also downloaded by phones.', 'seo-assistant-for-elementor' ),
 					max( $no_mobile_bg )
 				),
-				__( 'Switch the editor to the mobile view, open Style → Background and upload a smaller image (about 800 px wide) for phones.', 'nazari-seo-assistant' )
+				__( 'Switch the editor to the mobile view, open Style → Background and upload a smaller image (about 800 px wide) for phones.', 'seo-assistant-for-elementor' )
 			);
 		}
 
@@ -173,8 +173,8 @@ final class NZSA_Rule_Images extends NZSA_Rule {
 				NZSA_Category::Access,
 				NZSA_Severity::Error,
 				'alt_missing',
-				$this->count_prefix( count( $no_alt ), $total ) . __( 'has no alternative text (alt).', 'nazari-seo-assistant' ),
-				__( 'Open the image in the Media Library and fill in “Alternative Text”: describe the picture in a few words. Search engines and screen readers rely on it.', 'nazari-seo-assistant' )
+				$this->count_prefix( count( $no_alt ), $total ) . __( 'has no alternative text (alt).', 'seo-assistant-for-elementor' ),
+				__( 'Open the image in the Media Library and fill in “Alternative Text”: describe the picture in a few words. Search engines and screen readers rely on it.', 'seo-assistant-for-elementor' )
 			);
 		}
 
@@ -184,8 +184,8 @@ final class NZSA_Rule_Images extends NZSA_Rule {
 				NZSA_Category::Access,
 				NZSA_Severity::Warning,
 				'alt_filename',
-				$this->count_prefix( count( $bad_alt ), $total ) . __( 'has an alt text that looks like a file name.', 'nazari-seo-assistant' ),
-				__( 'Replace it with a short description of what the picture shows.', 'nazari-seo-assistant' )
+				$this->count_prefix( count( $bad_alt ), $total ) . __( 'has an alt text that looks like a file name.', 'seo-assistant-for-elementor' ),
+				__( 'Replace it with a short description of what the picture shows.', 'seo-assistant-for-elementor' )
 			);
 		}
 
@@ -195,8 +195,8 @@ final class NZSA_Rule_Images extends NZSA_Rule {
 				NZSA_Category::Speed,
 				NZSA_Severity::Info,
 				'external',
-				$this->count_prefix( $unknown, $total ) . __( 'is not in the Media Library, so its size and alt text could not be checked.', 'nazari-seo-assistant' ),
-				__( 'Upload the image to the Media Library and select it again.', 'nazari-seo-assistant' )
+				$this->count_prefix( $unknown, $total ) . __( 'is not in the Media Library, so its size and alt text could not be checked.', 'seo-assistant-for-elementor' ),
+				__( 'Upload the image to the Media Library and select it again.', 'seo-assistant-for-elementor' )
 			);
 		}
 
@@ -206,11 +206,11 @@ final class NZSA_Rule_Images extends NZSA_Rule {
 	/** “Image” or “2 of 5 images”, ready to be followed by a verb phrase. */
 	private function count_prefix( int $count, int $total ): string {
 		if ( $total <= 1 ) {
-			return __( 'The image', 'nazari-seo-assistant' ) . ' ';
+			return __( 'The image', 'seo-assistant-for-elementor' ) . ' ';
 		}
 		return sprintf(
 			/* translators: 1: number of affected images, 2: total images in the element */
-			__( '%1$d of %2$d images', 'nazari-seo-assistant' ),
+			__( '%1$d of %2$d images', 'seo-assistant-for-elementor' ),
 			$count,
 			$total
 		) . ' ';

@@ -48,10 +48,10 @@ final class NZSA_Rule_Weight extends NZSA_Rule {
 					'slides',
 					sprintf(
 						/* translators: %d: number of slides */
-						__( 'The slider holds %d images, and every one is downloaded even if nobody scrolls to it.', 'nazari-seo-assistant' ),
+						__( 'The slider holds %d images, and every one is downloaded even if nobody scrolls to it.', 'seo-assistant-for-elementor' ),
 						$slides
 					),
-					__( 'Keep it to 3–5 slides, or link to a gallery page for the rest.', 'nazari-seo-assistant' )
+					__( 'Keep it to 3–5 slides, or link to a gallery page for the rest.', 'seo-assistant-for-elementor' )
 				);
 			}
 		}
@@ -62,8 +62,8 @@ final class NZSA_Rule_Weight extends NZSA_Rule {
 				NZSA_Category::Speed,
 				NZSA_Severity::Warning,
 				'video_lazy',
-				__( 'The video player loads with the page, which adds several hundred KB of scripts.', 'nazari-seo-assistant' ),
-				__( 'In the Video widget turn on “Lazy Load” so it loads only when the visitor presses play.', 'nazari-seo-assistant' )
+				__( 'The video player loads with the page, which adds several hundred KB of scripts.', 'seo-assistant-for-elementor' ),
+				__( 'In the Video widget turn on “Lazy Load” so it loads only when the visitor presses play.', 'seo-assistant-for-elementor' )
 			);
 		}
 
@@ -73,8 +73,8 @@ final class NZSA_Rule_Weight extends NZSA_Rule {
 				NZSA_Category::Speed,
 				NZSA_Severity::Info,
 				'map',
-				__( 'An embedded map is heavy. Keep it low on the page so it does not delay the first screen.', 'nazari-seo-assistant' ),
-				__( 'Place it in a section further down, or replace it with a static image that links to the map.', 'nazari-seo-assistant' )
+				__( 'An embedded map is heavy. Keep it low on the page so it does not delay the first screen.', 'seo-assistant-for-elementor' ),
+				__( 'Place it in a section further down, or replace it with a static image that links to the map.', 'seo-assistant-for-elementor' )
 			);
 		}
 
@@ -84,8 +84,8 @@ final class NZSA_Rule_Weight extends NZSA_Rule {
 				NZSA_Category::Speed,
 				NZSA_Severity::Info,
 				'iframe',
-				__( 'An iframe in this HTML loads immediately.', 'nazari-seo-assistant' ),
-				__( 'Add loading="lazy" to the iframe tag.', 'nazari-seo-assistant' )
+				__( 'An iframe in this HTML loads immediately.', 'seo-assistant-for-elementor' ),
+				__( 'Add loading="lazy" to the iframe tag.', 'seo-assistant-for-elementor' )
 			);
 		}
 
@@ -123,10 +123,10 @@ final class NZSA_Rule_Weight extends NZSA_Rule {
 				'total',
 				sprintf(
 					/* translators: %s: size such as 1.4 MB */
-					__( 'The images in this block add up to about %s.', 'nazari-seo-assistant' ),
+					__( 'The images in this block add up to about %s.', 'seo-assistant-for-elementor' ),
 					size_format( $bytes, 1 )
 				),
-				__( 'Aim for under 500 KB per block: compress the largest images first.', 'nazari-seo-assistant' ),
+				__( 'Aim for under 500 KB per block: compress the largest images first.', 'seo-assistant-for-elementor' ),
 				array( 'kb' => $kb )
 			);
 		} elseif ( $kb > 500 ) {
@@ -137,10 +137,10 @@ final class NZSA_Rule_Weight extends NZSA_Rule {
 				'total',
 				sprintf(
 					/* translators: %s: size such as 700 KB */
-					__( 'The images in this block add up to about %s.', 'nazari-seo-assistant' ),
+					__( 'The images in this block add up to about %s.', 'seo-assistant-for-elementor' ),
 					size_format( $bytes, 1 )
 				),
-				__( 'Aim for under 500 KB per block: compress the largest images first.', 'nazari-seo-assistant' ),
+				__( 'Aim for under 500 KB per block: compress the largest images first.', 'seo-assistant-for-elementor' ),
 				array( 'kb' => $kb )
 			);
 		}
@@ -153,8 +153,8 @@ final class NZSA_Rule_Weight extends NZSA_Rule {
 					NZSA_Category::Speed,
 					NZSA_Severity::Warning,
 					'bg_video',
-					__( 'A background video downloads on every visit, even on phones.', 'nazari-seo-assistant' ),
-					__( 'Use a compressed poster image instead, or keep the video under 2 MB and add a mobile fallback image.', 'nazari-seo-assistant' )
+					__( 'A background video downloads on every visit, even on phones.', 'seo-assistant-for-elementor' ),
+					__( 'Use a compressed poster image instead, or keep the video under 2 MB and add a mobile fallback image.', 'seo-assistant-for-elementor' )
 				);
 			}
 		}
@@ -174,10 +174,10 @@ final class NZSA_Rule_Weight extends NZSA_Rule {
 				'animations',
 				sprintf(
 					/* translators: %d: number of animated elements */
-					__( '%d elements here are animated. Many animations delay interaction and can hurt the “Cumulative Layout Shift” score.', 'nazari-seo-assistant' ),
+					__( '%d elements here are animated. Many animations delay interaction and can hurt the “Cumulative Layout Shift” score.', 'seo-assistant-for-elementor' ),
 					$animated
 				),
-				__( 'Keep animations for the one or two things that matter.', 'nazari-seo-assistant' )
+				__( 'Keep animations for the one or two things that matter.', 'seo-assistant-for-elementor' )
 			);
 		}
 
@@ -199,11 +199,11 @@ final class NZSA_Rule_Weight extends NZSA_Rule {
 				'depth',
 				sprintf(
 					/* translators: 1: nesting levels, 2: recommended maximum */
-					__( 'Containers are nested %1$d levels deep (aim for %2$d or fewer). Deep nesting makes the page heavier to build and style.', 'nazari-seo-assistant' ),
+					__( 'Containers are nested %1$d levels deep (aim for %2$d or fewer). Deep nesting makes the page heavier to build and style.', 'seo-assistant-for-elementor' ),
 					$max_depth + 1,
 					$limit
 				),
-				__( 'Remove containers that only wrap a single element, or use the parent’s padding and gap instead.', 'nazari-seo-assistant' )
+				__( 'Remove containers that only wrap a single element, or use the parent’s padding and gap instead.', 'seo-assistant-for-elementor' )
 			);
 		}
 		if ( $widgets > 60 ) {
@@ -214,10 +214,10 @@ final class NZSA_Rule_Weight extends NZSA_Rule {
 				'widgets',
 				sprintf(
 					/* translators: %d: number of widgets */
-					__( 'This block has %d widgets, which makes the page heavy.', 'nazari-seo-assistant' ),
+					__( 'This block has %d widgets, which makes the page heavy.', 'seo-assistant-for-elementor' ),
 					$widgets
 				),
-				__( 'Split the content into several pages, or use a Loop Grid instead of copying widgets.', 'nazari-seo-assistant' )
+				__( 'Split the content into several pages, or use a Loop Grid instead of copying widgets.', 'seo-assistant-for-elementor' )
 			);
 		}
 

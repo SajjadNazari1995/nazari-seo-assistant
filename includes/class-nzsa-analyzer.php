@@ -21,6 +21,7 @@ final class NZSA_Analyzer {
 			new NZSA_Rule_Weight(),
 			new NZSA_Rule_Responsive(),
 			new NZSA_Rule_Links(),
+			new NZSA_Rule_Vitals(),
 		);
 
 		/**
@@ -39,13 +40,23 @@ final class NZSA_Analyzer {
 	 * @param int              $position_index Index of the clicked element among the page's top-level elements.
 	 * @param int              $position_total Number of top-level elements on the page.
 	 * @param int              $post_id        Page being edited (0 if unknown).
+	 * @param string           $role           Page role picked by the person, or "auto" to detect it.
+	 * @param mixed            $measure        Sizes measured in the editor preview (see NZSA_Measure), or null.
 	 * @return array<string,mixed>
 	 */
-	public function analyze( array $elements, string $scope = 'element', int $position_index = 0, int $position_total = 1, int $post_id = 0 ): array {
+	public function analyze( array $elements, string $scope = 'element', int $position_index = 0, int $position_total = 1, int $post_id = 0, string $role = NZSA_Roles::AUTO, mixed $measure = null ): array {
 		$settings = NZSA_Settings::all();
 
 		$tree  = new NZSA_Tree( self::kit_width(), (int) $settings['viewport'] );
 		$roots = $tree->build( $elements );
+
+		// Sizes measured in the editor replace the estimates when the view allows it.
+		$measured = NZSA_Measure::from( $measure );
+		$blocker  = 'none';
+		if ( $measured ) {
+			$blocker = $measured->sizing_blocker( (int) $settings['viewport'] );
+			$measured->apply( $roots, '' === $blocker );
+		}
 
 		$ctx = new NZSA_Context(
 			$roots,
@@ -54,7 +65,9 @@ final class NZSA_Analyzer {
 			max( 1, $position_total ),
 			$settings,
 			new NZSA_Images(),
-			$post_id
+			$post_id,
+			NZSA_Roles::resolve( $role, $post_id ),
+			$measured
 		);
 
 		/** @var NZSA_Issue[] $issues */
@@ -66,14 +79,15 @@ final class NZSA_Analyzer {
 			array_push( $issues, ...$rule->check_page( $ctx ) );
 		}
 
-		return $this->report( $ctx, $issues );
+		return $this->report( $ctx, $issues, $blocker );
 	}
 
 	/**
 	 * @param NZSA_Issue[] $issues
+	 * @param string       $blocker Why measured sizes were not used for sizing: "", "none", "device" or "viewport".
 	 * @return array<string,mixed>
 	 */
-	private function report( NZSA_Context $ctx, array $issues ): array {
+	private function report( NZSA_Context $ctx, array $issues, string $blocker ): array {
 		// Same finding on the same element is reported once.
 		$unique = array();
 		foreach ( $issues as $issue ) {
@@ -141,6 +155,17 @@ final class NZSA_Analyzer {
 
 		return array(
 			'scope'   => $ctx->scope,
+			'role'    => array(
+				'used'     => $ctx->role,
+				'label'    => NZSA_Roles::label( $ctx->role ),
+				'detected' => NZSA_Roles::detect( $ctx->post_id ),
+			),
+			'measure' => array(
+				'used'     => '' === $blocker,
+				'device'   => $ctx->measure ? $ctx->measure->device : '',
+				'viewport' => $ctx->measure ? $ctx->measure->viewport : 0,
+				'reason'   => $blocker,
+			),
 			'summary' => array(
 				'total'      => $total,
 				'max'        => $max,

@@ -9,7 +9,7 @@
 	var cfg = window.NZSA_EDITOR || {};
 	var t = cfg.i18n || {};
 	var win = null; // The floating window (DOM node).
-	var state = { id: '', scope: 'element', showOk: false, busy: false, data: null, tree: null };
+	var state = { id: '', scope: 'element', role: 'auto', showOk: false, busy: false, data: null, tree: null };
 
 	/* ---------------------------------------------------------------- *
 	 * Small DOM helpers (all text goes through textContent, never HTML)
@@ -86,13 +86,16 @@
 		var index = Math.max( 0, topList.indexOf( top ) );
 
 		var elements;
+		var containers;
 		if ( 'page' === scope ) {
+			containers = topList.slice();
 			elements = topList.map( modelData );
 		} else {
+			containers = [ container ];
 			elements = [ modelData( container ) ];
 		}
 
-		return { elements: elements, index: index, total: Math.max( 1, topList.length ), postId: ( window.elementor && elementor.config && elementor.config.document ) ? elementor.config.document.id : 0 };
+		return { elements: elements, containers: containers, index: index, total: Math.max( 1, topList.length ), postId: ( window.elementor && elementor.config && elementor.config.document ) ? elementor.config.document.id : 0 };
 	}
 
 	function titleOf( model ) {
@@ -135,6 +138,63 @@
 	}
 
 	/* ---------------------------------------------------------------- *
+	 * Measuring the live preview
+	 * ---------------------------------------------------------------- */
+
+	function currentDevice() {
+		try {
+			return elementor.channels.deviceMode.request( 'currentMode' ) || 'desktop';
+		} catch ( e ) {
+			return 'desktop';
+		}
+	}
+
+	function previewWidth() {
+		try {
+			return Math.round( elementor.$preview[ 0 ].contentWindow.innerWidth ) || 0;
+		} catch ( e ) {
+			return 0;
+		}
+	}
+
+	function round1( value ) {
+		return Math.round( value * 10 ) / 10;
+	}
+
+	/** Drawn width of every element (and of each widget's first image) in the preview. */
+	function measureNodes( containers ) {
+		var widths = {};
+		var images = {};
+		var count = 0;
+
+		function visit( c ) {
+			if ( ! c || count >= 3000 ) {
+				return;
+			}
+			count++;
+
+			var el = c.view && c.view.el;
+			if ( el && el.getBoundingClientRect ) {
+				var w = el.getBoundingClientRect().width;
+				if ( w > 0 ) {
+					widths[ c.id ] = round1( w );
+				}
+				if ( c.model && 'widget' === c.model.get( 'elType' ) ) {
+					var img = el.querySelector( 'img' );
+					var iw = img ? img.getBoundingClientRect().width : 0;
+					if ( iw > 0 ) {
+						images[ c.id ] = round1( iw );
+					}
+				}
+			}
+			( c.children || [] ).forEach( visit );
+		}
+
+		( containers || [] ).forEach( visit );
+		return { widths: widths, images: images };
+	}
+
+	/* ---------------------------------------------------------------- *
 	 * Talking to the site
 	 * ---------------------------------------------------------------- */
 
@@ -163,7 +223,17 @@
 		state.tree = buildTree( state.id, state.scope );
 		render( null, t.checking );
 
-		request( { elements: picked.elements, scope: state.scope, index: picked.index, total: picked.total, post_id: picked.postId } )
+		var m = measureNodes( picked.containers );
+
+		request( {
+			elements: picked.elements,
+			scope: state.scope,
+			index: picked.index,
+			total: picked.total,
+			post_id: picked.postId,
+			role: state.role,
+			measure: { device: currentDevice(), viewport: previewWidth(), widths: m.widths, images: m.images },
+		} )
 			.then( function ( data ) {
 				state.busy = false;
 				state.data = data;
@@ -213,6 +283,29 @@
 			scopes.appendChild( b );
 		} );
 		bar.appendChild( scopes );
+
+		var roleBox = h( 'label', 'nzsa-role' );
+		roleBox.appendChild( h( 'span', '', t.role ) );
+		var select = document.createElement( 'select' );
+		select.setAttribute( 'data-nzsa', 'role' );
+		var auto = document.createElement( 'option' );
+		auto.value = 'auto';
+		auto.textContent = String( t.roleAuto || '%s' ).replace( '%s', '…' );
+		select.appendChild( auto );
+		( cfg.roles || [] ).forEach( function ( role ) {
+			var opt = document.createElement( 'option' );
+			opt.value = role.key;
+			opt.textContent = role.label;
+			select.appendChild( opt );
+		} );
+		select.addEventListener( 'change', function () {
+			state.role = select.value;
+			if ( ! state.busy ) {
+				run();
+			}
+		} );
+		roleBox.appendChild( select );
+		bar.appendChild( roleBox );
 
 		var label = h( 'label', 'nzsa-check' );
 		var box = document.createElement( 'input' );
@@ -369,6 +462,26 @@
 		body.appendChild( list );
 	}
 
+	function measureNote( measure ) {
+		if ( measure && measure.used ) {
+			return t.measured;
+		}
+		if ( measure && 'device' === measure.reason ) {
+			return t.measureDevice;
+		}
+		if ( measure && 'viewport' === measure.reason ) {
+			return t.measureNarrow;
+		}
+		return t.estimated;
+	}
+
+	function roleLabel( key ) {
+		var found = ( cfg.roles || [] ).filter( function ( r ) {
+			return r.key === key;
+		} )[ 0 ];
+		return found ? found.label : key;
+	}
+
 	function renderSummary( body, data ) {
 		var s = data.summary;
 		var g = grade( s.total, s.max );
@@ -424,6 +537,7 @@
 
 		var st = data.stats || {};
 		box.appendChild( h( 'p', 'nzsa-muted', fmt( t.stats, [ st.elements, st.images, st.kb ] ) ) );
+		box.appendChild( h( 'p', 'nzsa-muted', measureNote( data.measure ) ) );
 
 		var again = h( 'button', 'nzsa-btn nzsa-btn-wide', t.recheck );
 		again.type = 'button';
@@ -445,6 +559,13 @@
 		Array.prototype.forEach.call( w.querySelectorAll( '.nzsa-seg button' ), function ( b ) {
 			b.classList.toggle( 'is-active', b.getAttribute( 'data-scope' ) === state.scope );
 		} );
+
+		var roleSelect = w.querySelector( 'select[data-nzsa="role"]' );
+		if ( roleSelect ) {
+			var detected = data && data.role ? roleLabel( data.role.detected ) : '…';
+			roleSelect.options[ 0 ].textContent = String( t.roleAuto || '%s' ).replace( '%s', detected );
+			roleSelect.value = state.role;
+		}
 
 		var chip = w.querySelector( '.nzsa-chip' );
 		chip.textContent = data ? data.summary.total + '/' + data.summary.max : '';
@@ -468,6 +589,7 @@
 		}
 		state.id = container.id;
 		state.scope = 'element';
+		state.role = 'auto';
 		state.data = null;
 		run();
 	}
@@ -499,9 +621,24 @@
 		return behaviors;
 	}
 
-	$( window ).on( 'elementor:init', function () {
+	/*
+	 * Register as early as Elementor allows. `elementor.hooks` only exists after the
+	 * editor starts, and `elementor:init` fires AFTER the first document has been
+	 * rendered, so views built before it would never get the menu item. `elementor:loaded`
+	 * fires before the document opens. The flag keeps the registration to once.
+	 */
+	var registered = false;
+
+	function register() {
+		if ( registered || ! window.elementor || ! elementor.hooks ) {
+			return;
+		}
+		registered = true;
 		elementor.hooks.addFilter( 'elements/base/behaviors', addMenuItem );
-	} );
+	}
+
+	register();
+	$( window ).on( 'elementor:loaded elementor:init', register );
 
 	// Small hook for tests and for other plugins.
 	window.NZSA_EDITOR_API = { review: review, close: closeWindow };

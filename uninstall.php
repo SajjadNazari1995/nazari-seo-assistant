@@ -2,7 +2,7 @@
 /**
  * Removes plugin data on uninstall, only if the user asked for it.
  *
- * @package nazari-seo-assistant
+ * @package seo-assistant-for-elementor
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;

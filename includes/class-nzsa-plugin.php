@@ -21,6 +21,8 @@ final class NZSA_Plugin {
 			'class-nzsa-rule',
 			'class-nzsa-images',
 			'class-nzsa-tree',
+			'class-nzsa-roles',
+			'class-nzsa-measure',
 			'class-nzsa-context',
 			'rules/class-nzsa-image-refs',
 			'rules/class-nzsa-rule-tags',
@@ -28,6 +30,7 @@ final class NZSA_Plugin {
 			'rules/class-nzsa-rule-weight',
 			'rules/class-nzsa-rule-responsive',
 			'rules/class-nzsa-rule-links',
+			'rules/class-nzsa-rule-vitals',
 			'class-nzsa-analyzer',
 			'class-nzsa-rest',
 		) as $file ) {
@@ -48,6 +51,6 @@ final class NZSA_Plugin {
 	}
 
 	public function load_textdomain(): void {
-		load_plugin_textdomain( 'nazari-seo-assistant', false, dirname( plugin_basename( NZSA_FILE ) ) . '/languages' ); // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound
+		load_plugin_textdomain( 'seo-assistant-for-elementor', false, dirname( plugin_basename( NZSA_FILE ) ) . '/languages' ); // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound
 	}
 }

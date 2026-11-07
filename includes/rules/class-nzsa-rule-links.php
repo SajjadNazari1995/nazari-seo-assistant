@@ -34,8 +34,8 @@ final class NZSA_Rule_Links extends NZSA_Rule {
 					NZSA_Category::Access,
 					NZSA_Severity::Error,
 					'button_empty',
-					__( 'The button has no text.', 'nazari-seo-assistant' ),
-					__( 'Write what the button does, for example “Get a free quote”.', 'nazari-seo-assistant' )
+					__( 'The button has no text.', 'seo-assistant-for-elementor' ),
+					__( 'Write what the button does, for example “Get a free quote”.', 'seo-assistant-for-elementor' )
 				);
 			} elseif ( $this->is_vague( $text ) ) {
 				$issues[] = $this->issue(
@@ -45,10 +45,10 @@ final class NZSA_Rule_Links extends NZSA_Rule {
 					'vague',
 					sprintf(
 						/* translators: %s: button text */
-						__( 'The button text “%s” does not say where it leads.', 'nazari-seo-assistant' ),
+						__( 'The button text “%s” does not say where it leads.', 'seo-assistant-for-elementor' ),
 						NZSA_Context::excerpt( $text )
 					),
-					__( 'Use words that describe the destination, such as “See our pricing”.', 'nazari-seo-assistant' )
+					__( 'Use words that describe the destination, such as “See our pricing”.', 'seo-assistant-for-elementor' )
 				);
 			}
 
@@ -58,8 +58,8 @@ final class NZSA_Rule_Links extends NZSA_Rule {
 					NZSA_Category::Access,
 					NZSA_Severity::Warning,
 					'button_no_link',
-					__( 'The button has no link.', 'nazari-seo-assistant' ),
-					__( 'Add a URL in the “Link” field, or remove the button.', 'nazari-seo-assistant' )
+					__( 'The button has no link.', 'seo-assistant-for-elementor' ),
+					__( 'Add a URL in the “Link” field, or remove the button.', 'seo-assistant-for-elementor' )
 				);
 			}
 		}
@@ -78,10 +78,10 @@ final class NZSA_Rule_Links extends NZSA_Rule {
 							'vague_text',
 							sprintf(
 								/* translators: %s: link text */
-								__( 'The link text “%s” does not say where it leads.', 'nazari-seo-assistant' ),
+								__( 'The link text “%s” does not say where it leads.', 'seo-assistant-for-elementor' ),
 								NZSA_Context::excerpt( $text )
 							),
-							__( 'Make the link text describe the destination.', 'nazari-seo-assistant' )
+							__( 'Make the link text describe the destination.', 'seo-assistant-for-elementor' )
 						);
 						break;
 					}
@@ -103,10 +103,10 @@ final class NZSA_Rule_Links extends NZSA_Rule {
 						'text_img_alt',
 						sprintf(
 							/* translators: %d: number of images */
-							__( '%d image(s) inside this text have no alt text.', 'nazari-seo-assistant' ),
+							__( '%d image(s) inside this text have no alt text.', 'seo-assistant-for-elementor' ),
 							$missing
 						),
-						__( 'In the text editor click the image and fill in “Alternative text”.', 'nazari-seo-assistant' )
+						__( 'In the text editor click the image and fill in “Alternative text”.', 'seo-assistant-for-elementor' )
 					);
 				}
 			}

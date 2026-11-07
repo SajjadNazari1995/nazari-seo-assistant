@@ -21,9 +21,9 @@ enum NZSA_Severity: string {
 
 	public function label(): string {
 		return match ( $this ) {
-			self::Error   => __( 'Fix', 'nazari-seo-assistant' ),
-			self::Warning => __( 'Improve', 'nazari-seo-assistant' ),
-			self::Info    => __( 'Tip', 'nazari-seo-assistant' ),
+			self::Error   => __( 'Fix', 'seo-assistant-for-elementor' ),
+			self::Warning => __( 'Improve', 'seo-assistant-for-elementor' ),
+			self::Info    => __( 'Tip', 'seo-assistant-for-elementor' ),
 		};
 	}
 }
@@ -58,10 +58,10 @@ enum NZSA_Category: string {
 
 	public function label(): string {
 		return match ( $this ) {
-			self::Tags       => __( 'HTML tags', 'nazari-seo-assistant' ),
-			self::Dimensions => __( 'Dimensions', 'nazari-seo-assistant' ),
-			self::Speed      => __( 'Loading speed', 'nazari-seo-assistant' ),
-			self::Access     => __( 'Content and accessibility', 'nazari-seo-assistant' ),
+			self::Tags       => __( 'HTML tags', 'seo-assistant-for-elementor' ),
+			self::Dimensions => __( 'Dimensions', 'seo-assistant-for-elementor' ),
+			self::Speed      => __( 'Loading speed', 'seo-assistant-for-elementor' ),
+			self::Access     => __( 'Content and accessibility', 'seo-assistant-for-elementor' ),
 		};
 	}
 }
@@ -113,6 +113,12 @@ final class NZSA_Node {
 
 	/** Position among all nodes (document order). */
 	public int $order = 0;
+
+	/** Width in CSS px measured in the editor preview in the current device view (null when not measured). */
+	public ?float $measured = null;
+
+	/** Measured drawn width of the element's first image, desktop view only (null when not measured). */
+	public ?float $img_width = null;
 
 	/**
 	 * @param array<string,mixed> $settings

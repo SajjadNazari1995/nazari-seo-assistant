@@ -25,6 +25,11 @@ final class NZSA_Tree {
 		private readonly int $viewport
 	) {}
 
+	/** Element ids are letters, digits, dash and underscore only. */
+	public static function clean_id( string $id ): string {
+		return substr( (string) preg_replace( '/[^A-Za-z0-9_-]/', '', $id ), 0, 40 );
+	}
+
 	/**
 	 * @param array<int,mixed> $elements Top-level elements.
 	 * @return NZSA_Node[]
@@ -66,8 +71,8 @@ final class NZSA_Tree {
 
 		++$this->count;
 
-		$id = isset( $raw['id'] ) && is_scalar( $raw['id'] ) ? (string) preg_replace( '/[^A-Za-z0-9_-]/', '', (string) $raw['id'] ) : '';
-		$id = '' !== $id ? substr( $id, 0, 40 ) : 'n' . $this->count;
+		$id = isset( $raw['id'] ) && is_scalar( $raw['id'] ) ? self::clean_id( (string) $raw['id'] ) : '';
+		$id = '' !== $id ? $id : 'n' . $this->count;
 
 		$el_type = isset( $raw['elType'] ) && is_string( $raw['elType'] ) ? sanitize_key( $raw['elType'] ) : '';
 		$widget  = isset( $raw['widgetType'] ) && is_string( $raw['widgetType'] ) ? sanitize_key( $raw['widgetType'] ) : '';

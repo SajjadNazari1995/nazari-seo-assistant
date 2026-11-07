@@ -27,10 +27,10 @@ final class NZSA_Rule_Responsive extends NZSA_Rule {
 				'width',
 				sprintf(
 					/* translators: %d: width in px */
-					__( 'It has a fixed width of %d px, wider than a phone screen (about 375 px), so it can stick out of the page on mobile.', 'nazari-seo-assistant' ),
+					__( 'It has a fixed width of %d px, wider than a phone screen (about 375 px), so it can stick out of the page on mobile.', 'seo-assistant-for-elementor' ),
 					(int) $width
 				),
-				__( 'Switch the editor to the mobile view and set the width to 100% (or a smaller value).', 'nazari-seo-assistant' ),
+				__( 'Switch the editor to the mobile view and set the width to 100% (or a smaller value).', 'seo-assistant-for-elementor' ),
 				array( 'width' => (int) $width )
 			);
 		}
@@ -45,10 +45,10 @@ final class NZSA_Rule_Responsive extends NZSA_Rule {
 				'height',
 				sprintf(
 					/* translators: %d: height in px */
-					__( 'The minimum height is %d px on every device, which fills more than a whole phone screen.', 'nazari-seo-assistant' ),
+					__( 'The minimum height is %d px on every device, which fills more than a whole phone screen.', 'seo-assistant-for-elementor' ),
 					(int) $height
 				),
-				__( 'In the mobile view set a smaller minimum height (for example 300 px) or switch it to “min-height: auto”.', 'nazari-seo-assistant' ),
+				__( 'In the mobile view set a smaller minimum height (for example 300 px) or switch it to “min-height: auto”.', 'seo-assistant-for-elementor' ),
 				array( 'height' => (int) $height )
 			);
 		}
@@ -70,10 +70,10 @@ final class NZSA_Rule_Responsive extends NZSA_Rule {
 					'padding',
 					sprintf(
 						/* translators: %d: padding in px */
-						__( 'The padding is %d px on all devices, which leaves little room for content on a phone.', 'nazari-seo-assistant' ),
+						__( 'The padding is %d px on all devices, which leaves little room for content on a phone.', 'seo-assistant-for-elementor' ),
 						(int) $max
 					),
-					__( 'In the mobile view reduce the padding to about 20–40 px.', 'nazari-seo-assistant' )
+					__( 'In the mobile view reduce the padding to about 20–40 px.', 'seo-assistant-for-elementor' )
 				);
 			}
 		}
@@ -89,10 +89,10 @@ final class NZSA_Rule_Responsive extends NZSA_Rule {
 					'font',
 					sprintf(
 						/* translators: %d: font size in px */
-						__( 'The text size is %d px on every device. Long words can overflow a phone screen.', 'nazari-seo-assistant' ),
+						__( 'The text size is %d px on every device. Long words can overflow a phone screen.', 'seo-assistant-for-elementor' ),
 						(int) $font
 					),
-					__( 'In the mobile view set a smaller font size (about 60% of the desktop size).', 'nazari-seo-assistant' )
+					__( 'In the mobile view set a smaller font size (about 60% of the desktop size).', 'seo-assistant-for-elementor' )
 				);
 			}
 		}
@@ -106,11 +106,36 @@ final class NZSA_Rule_Responsive extends NZSA_Rule {
 				'row',
 				sprintf(
 					/* translators: %d: number of items in the row */
-					__( 'The %d items stay in one row on phones, so they get squeezed or overflow.', 'nazari-seo-assistant' ),
+					__( 'The %d items stay in one row on phones, so they get squeezed or overflow.', 'seo-assistant-for-elementor' ),
 					count( $node->children )
 				),
-				__( 'In the mobile view set the container direction to “Column” (or turn on “Wrap”).', 'nazari-seo-assistant' )
+				__( 'In the mobile view set the container direction to “Column” (or turn on “Wrap”).', 'seo-assistant-for-elementor' )
 			);
+		}
+
+		// 6. Measured in the editor: wider than the screen in the tablet / mobile view.
+		if ( $ctx->measure && $ctx->measure->is_small_device() && $ctx->measure->viewport > 0 && null !== $node->measured ) {
+			$screen      = $ctx->measure->viewport;
+			$parent_over = $node->parent && null !== $node->parent->measured && $node->parent->measured > $screen + 2;
+			if ( $node->measured > $screen + 2 && ! $parent_over ) {
+				$issues[] = $this->issue(
+					$node,
+					NZSA_Category::Dimensions,
+					$node->measured > $screen * 1.15 ? NZSA_Severity::Error : NZSA_Severity::Warning,
+					'overflow',
+					sprintf(
+						/* translators: 1: element width in px, 2: screen width in px */
+						__( 'In this view it is %1$d px wide but the screen is only %2$d px, so it sticks out of the page.', 'seo-assistant-for-elementor' ),
+						(int) round( $node->measured ),
+						$screen
+					),
+					__( 'Check its width, margins and padding in this view. Set the width to 100% or a smaller value, and make rows wrap or stack.', 'seo-assistant-for-elementor' ),
+					array(
+						'width'  => (int) round( $node->measured ),
+						'screen' => $screen,
+					)
+				);
+			}
 		}
 
 		return $issues;

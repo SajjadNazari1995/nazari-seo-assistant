@@ -120,6 +120,11 @@ final class NZSA_Image_Refs {
 			return 0 === $node->depth ? (float) $viewport : max( 1.0, $node->width );
 		}
 
+		// The real drawn size, measured in the editor preview, beats any estimate.
+		if ( null !== $node->img_width ) {
+			return max( 1.0, $node->img_width );
+		}
+
 		$width = max( 1.0, $node->width );
 		if ( 'image-box' === $node->widget && in_array( $node->get( 'image_position' ), array( 'left', 'right' ), true ) ) {
 			$size = $node->size( 'image_size' );

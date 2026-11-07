@@ -20,6 +20,8 @@ final class NZSA_Context {
 	 * @param int                 $position_index Index of the analysed element on the page (element scope).
 	 * @param int                 $position_total Number of top-level elements on the page (element scope).
 	 * @param array<string,mixed> $settings       Plugin settings.
+	 * @param string              $role           What the page is for (see NZSA_Roles).
+	 * @param NZSA_Measure|null   $measure        Sizes measured in the editor preview, when sent.
 	 */
 	public function __construct(
 		public readonly array $roots,
@@ -28,8 +30,15 @@ final class NZSA_Context {
 		public readonly int $position_total,
 		public readonly array $settings,
 		public readonly NZSA_Images $images,
-		public readonly int $post_id = 0
+		public readonly int $post_id = 0,
+		public readonly string $role = 'page',
+		public readonly ?NZSA_Measure $measure = null
 	) {}
+
+	/** True for header, footer and popup templates. */
+	public function is_fragment(): bool {
+		return NZSA_Roles::is_fragment( $this->role );
+	}
 
 	/** @return NZSA_Node[] Every node in document order. */
 	public function all(): array {
@@ -75,7 +84,7 @@ final class NZSA_Context {
 				continue;
 			}
 
-			if ( 'heading' === $node->widget || 'theme-post-title' === $node->widget || 'theme-site-title' === $node->widget || 'theme-page-title' === $node->widget ) {
+			if ( in_array( $node->widget, array( 'heading', 'theme-post-title', 'theme-site-title', 'theme-page-title', 'theme-archive-title', 'woocommerce-product-title' ), true ) ) {
 				$default = 'heading' === $node->widget ? 'h2' : 'h1';
 				$tag     = strtolower( (string) $node->get( 'header_size', $default ) );
 				if ( ! preg_match( '/^h([1-6])$/', $tag, $m ) ) {
