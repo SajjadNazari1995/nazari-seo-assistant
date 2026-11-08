@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: SEO Assistant 1.1.0\n"
+"Project-Id-Version: SEO Assistant 1.2.3\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -624,3 +624,72 @@ msgstr "اندازه‌ها تخمینی‌اند چون پنجره ویرایش
 
 msgid "SEO Assistant for Elementor"
 msgstr "دستیار سئو المنتور"
+
+msgid "All devices"
+msgstr "همه دستگاه‌ها"
+
+msgid "Common practice for responsive images: a file about 2 times wider than the space it fills looks sharp on high-density screens. 3 times rarely shows a visible gain and adds a lot of weight."
+msgstr "روش رایج برای تصویر واکنش‌گرا: فایلی که حدود ۲ برابر عرض فضای خودش است، روی نمایشگرهای با تراکم بالا واضح دیده می‌شود. ۳ برابر معمولاً بهبود محسوسی ندارد و حجم زیادی اضافه می‌کند."
+
+msgid "Data"
+msgstr "داده‌ها"
+
+msgid "Desktop"
+msgstr "دسکتاپ"
+
+msgid "Each limit can be set for desktop, tablet and mobile. The review uses the limits of the device you are viewing in the Elementor editor. The standard behind every default is written above its fields."
+msgstr "هر حد را می‌توان برای دسکتاپ، تبلت و موبایل جدا تنظیم کرد. بررسی از حدهای همان دستگاهی استفاده می‌کند که در ویرایشگر المنتور می‌بینید. استاندارد پشت هر مقدار پیش‌فرض بالای فیلدهای آن نوشته شده است."
+
+msgid "Elementor’s default breakpoints are up to 1024 px for tablet and up to 767 px for mobile. These widths are used to work out how large a full-width element looks in each view when sizes cannot be measured."
+msgstr "نقطه‌شکست‌های پیش‌فرض المنتور برای تبلت تا ۱۰۲۴ پیکسل و برای موبایل تا ۷۶۷ پیکسل است. وقتی اندازه‌گیری ممکن نباشد، این عرض‌ها برای تخمین اندازه المان‌های تمام‌عرض در هر نمایش به کار می‌روند."
+
+msgid "Image weight: fix now above"
+msgstr "حجم تصویر: رفع فوری بالاتر از"
+
+msgid "Image weight: improve above"
+msgstr "حجم تصویر: بهبود بالاتر از"
+
+msgid "Limits used: %s"
+msgstr "حدهای استفاده‌شده: %s"
+
+msgid "Mobile"
+msgstr "موبایل"
+
+msgid "Page speed (Core Web Vitals)"
+msgstr "سرعت صفحه (Core Web Vitals)"
+
+msgid "Plugin guideline: above this weight an image almost always needs compressing or resizing. Save photos as WebP or AVIF."
+msgstr "راهنمای افزونه: بالاتر از این حجم، تصویر تقریباً همیشه به فشرده‌سازی یا تغییر اندازه نیاز دارد. عکس‌ها را با WebP یا AVIF ذخیره کنید."
+
+msgid "Plugin guideline: keep containers no more than 6 levels deep. Lighthouse warns when the page’s HTML is more than 32 levels deep, and every Elementor container adds levels. This limit is the same on every device."
+msgstr "راهنمای افزونه: کانتینرها را حداکثر ۶ سطح تو در تو نگه دارید. Lighthouse وقتی HTML صفحه بیش از ۳۲ سطح عمق داشته باشد هشدار می‌دهد و هر کانتینر المنتور چند سطح اضافه می‌کند. این حد برای همه دستگاه‌ها یکی است."
+
+msgid "Recommended: %1$s %2$s"
+msgstr "پیشنهادی: %1$s %2$s"
+
+msgid "Recommended: 6"
+msgstr "پیشنهادی: ۶"
+
+msgid "Screen width used for estimates"
+msgstr "عرض صفحه نمایش برای تخمین"
+
+msgid "Screens"
+msgstr "صفحه‌های نمایش"
+
+msgid "Standard (Google, web.dev): a good Largest Contentful Paint (LCP) is 2.5 seconds or less for 75% of visits, measured on phones and desktops separately. The first image is usually that element, so it gets a lower limit. The KB values are a plugin guideline."
+msgstr "استاندارد (گوگل، web.dev): Largest Contentful Paint (LCP) خوب یعنی ۲٫۵ ثانیه یا کمتر برای ۷۵٪ بازدیدها، که برای موبایل و دسکتاپ جدا سنجیده می‌شود. اولین تصویر معمولاً همین المان است، پس حد کمتری دارد. مقدارهای کیلوبایت راهنمای افزونه هستند."
+
+msgid "Structure"
+msgstr "ساختار"
+
+msgid "Tablet"
+msgstr "تبلت"
+
+msgid "There is no official weight limit for images. This is a plugin guideline: lighter images on smaller screens keep the page quick on mobile data. Google judges phones and desktops separately."
+msgstr "حد رسمی برای حجم تصویر وجود ندارد. این یک راهنمای افزونه است: تصویر سبک‌تر روی صفحه‌های کوچک‌تر، صفحه را روی اینترنت موبایل سریع نگه می‌دارد. گوگل موبایل و دسکتاپ را جدا ارزیابی می‌کند."
+
+msgid "Top image: improve above"
+msgstr "تصویر بالای صفحه: بهبود بالاتر از"
+
+msgid "levels"
+msgstr "سطح"

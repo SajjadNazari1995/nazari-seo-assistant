@@ -82,6 +82,11 @@ final class NZSA_Editor {
 				'measured'    => __( 'Sizes were measured in the editor preview.', 'seo-assistant-for-elementor' ),
 				'estimated'   => __( 'Sizes are estimated from your Elementor settings.', 'seo-assistant-for-elementor' ),
 				'measureDevice' => __( 'Sizes are estimated. Measured sizes are used in the desktop view.', 'seo-assistant-for-elementor' ),
+				/* translators: %s: device name (Desktop, Tablet or Mobile) */
+				'limitsFor'     => __( 'Limits used: %s', 'seo-assistant-for-elementor' ),
+				'desktop'       => __( 'Desktop', 'seo-assistant-for-elementor' ),
+				'tablet'        => __( 'Tablet', 'seo-assistant-for-elementor' ),
+				'mobile'        => __( 'Mobile', 'seo-assistant-for-elementor' ),
 				'measureNarrow' => __( 'Sizes are estimated because the editor window is much narrower than the desktop width set in the plugin settings. Close the side panels or widen the window.', 'seo-assistant-for-elementor' ),
 			),
 		);

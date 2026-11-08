@@ -27,6 +27,16 @@ final class NZSA_Measure {
 	) {}
 
 	/**
+	 * Device mode named in the request ("desktop" when missing), even when nothing could be measured.
+	 *
+	 * @param mixed $raw The "measure" object from the request.
+	 */
+	public static function device_of( mixed $raw ): string {
+		$device = is_array( $raw ) && isset( $raw['device'] ) && is_string( $raw['device'] ) ? sanitize_key( $raw['device'] ) : 'desktop';
+		return '' !== $device ? substr( $device, 0, 20 ) : 'desktop';
+	}
+
+	/**
 	 * @param mixed $raw The "measure" object from the request.
 	 */
 	public static function from( mixed $raw ): ?self {
@@ -34,8 +44,7 @@ final class NZSA_Measure {
 			return null;
 		}
 
-		$device   = isset( $raw['device'] ) && is_string( $raw['device'] ) ? sanitize_key( $raw['device'] ) : 'desktop';
-		$device   = '' !== $device ? substr( $device, 0, 20 ) : 'desktop';
+		$device   = self::device_of( $raw );
 		$viewport = isset( $raw['viewport'] ) && is_numeric( $raw['viewport'] ) ? (int) $raw['viewport'] : 0;
 		$viewport = max( 0, min( 10000, $viewport ) );
 

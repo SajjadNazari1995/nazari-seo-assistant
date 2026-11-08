@@ -45,16 +45,20 @@ final class NZSA_Analyzer {
 	 * @return array<string,mixed>
 	 */
 	public function analyze( array $elements, string $scope = 'element', int $position_index = 0, int $position_total = 1, int $post_id = 0, string $role = NZSA_Roles::AUTO, mixed $measure = null ): array {
-		$settings = NZSA_Settings::all();
+		$all      = NZSA_Settings::all();
+		$measured = NZSA_Measure::from( $measure );
+
+		// The limits follow the device the person is looking at in the editor.
+		$device   = NZSA_Settings::device_for( NZSA_Measure::device_of( $measure ) );
+		$settings = NZSA_Settings::for_device( $device, $all );
 
 		$tree  = new NZSA_Tree( self::kit_width(), (int) $settings['viewport'] );
 		$roots = $tree->build( $elements );
 
 		// Sizes measured in the editor replace the estimates when the view allows it.
-		$measured = NZSA_Measure::from( $measure );
-		$blocker  = 'none';
+		$blocker = 'none';
 		if ( $measured ) {
-			$blocker = $measured->sizing_blocker( (int) $settings['viewport'] );
+			$blocker = $measured->sizing_blocker( (int) $all['viewport_desktop'] );
 			$measured->apply( $roots, '' === $blocker );
 		}
 
@@ -79,15 +83,16 @@ final class NZSA_Analyzer {
 			array_push( $issues, ...$rule->check_page( $ctx ) );
 		}
 
-		return $this->report( $ctx, $issues, $blocker );
+		return $this->report( $ctx, $issues, $blocker, $device );
 	}
 
 	/**
 	 * @param NZSA_Issue[] $issues
 	 * @param string       $blocker Why measured sizes were not used for sizing: "", "none", "device" or "viewport".
+	 * @param string       $device  Device whose limits were used: desktop, tablet or mobile.
 	 * @return array<string,mixed>
 	 */
-	private function report( NZSA_Context $ctx, array $issues, string $blocker ): array {
+	private function report( NZSA_Context $ctx, array $issues, string $blocker, string $device ): array {
 		// Same finding on the same element is reported once.
 		$unique = array();
 		foreach ( $issues as $issue ) {
@@ -155,6 +160,7 @@ final class NZSA_Analyzer {
 
 		return array(
 			'scope'   => $ctx->scope,
+			'device'  => $device,
 			'role'    => array(
 				'used'     => $ctx->role,
 				'label'    => NZSA_Roles::label( $ctx->role ),

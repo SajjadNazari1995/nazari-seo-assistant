@@ -538,6 +538,9 @@
 		var st = data.stats || {};
 		box.appendChild( h( 'p', 'nzsa-muted', fmt( t.stats, [ st.elements, st.images, st.kb ] ) ) );
 		box.appendChild( h( 'p', 'nzsa-muted', measureNote( data.measure ) ) );
+		if ( data.device && t[ data.device ] ) {
+			box.appendChild( h( 'p', 'nzsa-muted', t.limitsFor.replace( '%s', t[ data.device ] ) ) );
+		}
 
 		var again = h( 'button', 'nzsa-btn nzsa-btn-wide', t.recheck );
 		again.type = 'button';

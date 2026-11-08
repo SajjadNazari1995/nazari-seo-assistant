@@ -8,7 +8,7 @@
 
 Right-click any section, container or widget in the Elementor editor, choose **Review structure** (بررسی ساختار), and a floating window lists every element in order with exactly what to change: the HTML tag to use, image size and resolution, mobile fit and loading speed. The last item is a scored summary with a **Check again** button.
 
-![Version](https://img.shields.io/badge/version-1.1.0-2f6bff)
+![Version](https://img.shields.io/badge/version-1.2.3-2f6bff)
 ![PHP](https://img.shields.io/badge/PHP-8.2%2B-777bb4)
 ![WordPress](https://img.shields.io/badge/WordPress-6.5%2B-21759b)
 ![Elementor](https://img.shields.io/badge/Elementor-required-92003b)
@@ -123,15 +123,19 @@ Then activate it from the Plugins screen. There is no build step.
 
 Open **SEO Assistant → Settings**.
 
-| Setting | Default | What it does |
-|---|---|---|
-| Image size: improve above (KB) | 200 | Heavier images get an *Improve* notice |
-| Image size: fix above (KB) | 500 | Heavier images get a *Fix* notice |
-| Top image: improve above (KB) | 150 | The first image on a page gets a lower limit because it decides how fast the page feels (allowed 30 to 2000) |
-| Sharpness factor | 2 | How many times the displayed width an image may be (2 suits retina screens; allowed 1 to 3) |
-| Maximum nesting depth | 6 | Containers nested deeper than this are flagged (allowed 3 to 15) |
-| Desktop width used for estimates (px) | 1440 | Used to work out how wide each element appears on desktop (allowed 1024 to 2560) |
-| Delete data on uninstall | Off | Also removes the plugin's settings when you delete it |
+Settings are grouped in categories. Every limit marked *per device* has three values (desktop, tablet, mobile), and the standard behind the default is written above its fields. The review uses the limits of the device shown in the editor.
+
+| Category | Setting | Default (desktop / tablet / mobile) | What it does |
+|---|---|---|---|
+| Images | Image weight: improve above (KB), *per device* | 200 / 150 / 100 | Heavier images get an *Improve* notice |
+| Images | Image weight: fix now above (KB), *per device* | 500 / 350 / 250 | Heavier images get a *Fix* notice |
+| Images | Sharpness factor, *per device* | 2 / 2 / 2 | How many times the displayed width an image may be (allowed 1 to 3) |
+| Page speed | Top image: improve above (KB), *per device* | 150 / 120 / 100 | The first image decides LCP, so it gets a lower limit (allowed 30 to 2000) |
+| Screens | Screen width used for estimates (px), *per device* | 1440 / 768 / 390 | Used to estimate how large a full-width element looks when sizes cannot be measured |
+| Structure | Maximum nesting depth | 6 | Containers nested deeper than this are flagged (allowed 3 to 15) |
+| Data | Delete data on uninstall | Off | Also removes the plugin's settings when you delete it |
+
+Settings saved by version 1.0 keep working: the old values become the desktop values.
 
 The **Rules** tab lists the built-in checks, and **About** shows the changelog.
 
@@ -250,6 +254,13 @@ Ideas and bug reports are welcome.
 English and Persian (fa_IR) are included, with RTL support. The language follows your WordPress site language.
 
 ## Changelog
+
+### 1.2.3
+- New: settings in categories (Images, Page speed, Screens, Structure, Data).
+- New: image weight, sharpness, top-image weight and screen width are set separately for **desktop, tablet and mobile**, with the standard written above each field.
+- New: the review uses the limits of the device shown in the editor, and the window says which limits were used.
+- Settings saved by earlier versions are kept and used for desktop.
+- Persian translation updated.
 
 ### 1.1.0
 - New: **page roles**. The review knows whether the page is the home page, a post or product, an archive, or a header, footer or popup template, and adjusts its checks. Detected automatically and changeable from the window.

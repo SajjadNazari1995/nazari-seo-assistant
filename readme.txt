@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.2
 Requires Plugins: elementor
-Stable tag: 1.1.0
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,13 @@ English and Persian (fa_IR), with RTL support.
 
 == Changelog ==
 
+= 1.2.3 =
+* New: settings are grouped in categories (Images, Page speed, Screens, Structure, Data).
+* New: image weight, sharpness, top-image weight and screen width can be set separately for desktop, tablet and mobile. The standard behind each default is written above its fields.
+* New: the review uses the limits of the device shown in the editor, and the window says which limits were used.
+* Settings saved by earlier versions are kept and used for desktop.
+* Persian translation updated.
+
 = 1.1.0 =
 * New: page roles. The review knows if the page is the home page, a post or product, an archive, or a header, footer or popup template, and adjusts its checks. Detected automatically, and you can change it in the window.
 * New: sizes are measured in the editor preview instead of estimated. In tablet and mobile view, elements wider than the screen are reported.
@@ -76,6 +83,9 @@ English and Persian (fa_IR), with RTL support.
 * First release: right-click "Review structure" in the Elementor editor, ordered guidance, scored summary and Check again.
 
 == Upgrade Notice ==
+
+= 1.2.3 =
+Adds separate limits for desktop, tablet and mobile. Your saved settings are kept.
 
 = 1.1.0 =
 Adds page roles, measured sizes and Core Web Vitals checks.

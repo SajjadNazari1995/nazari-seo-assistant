@@ -276,54 +276,165 @@ final class NZSA_Admin {
 		<?php
 	}
 
-	private static function number_field( string $name, string $label, string $help, int|float $value, int|float $min, int|float $max, string $step = '1' ): void {
+	/**
+	 * One setting with a value per device (desktop, tablet, mobile). The standard it follows is written above the inputs.
+	 *
+	 * @param array<string,int|float> $s Saved settings.
+	 */
+	private static function device_field( string $field, string $label, string $standard, string $unit, array $s ): void {
+		$defs    = NZSA_Settings::device_fields();
+		$def     = $defs[ $field ];
+		$devices = array(
+			'desktop' => array( __( 'Desktop', 'seo-assistant-for-elementor' ), 'dashicons-desktop' ),
+			'tablet'  => array( __( 'Tablet', 'seo-assistant-for-elementor' ), 'dashicons-tablet' ),
+			'mobile'  => array( __( 'Mobile', 'seo-assistant-for-elementor' ), 'dashicons-smartphone' ),
+		);
+		$step    = $def['float'] ? '0.1' : '1';
+		$rec     = array();
+		foreach ( NZSA_Settings::DEVICES as $i => $device ) {
+			$rec[] = $devices[ $device ][0] . ' ' . $def['default'][ $i ];
+		}
 		?>
-		<div class="nzsa-form-row">
-			<label for="nzsa-<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $label ); ?></label>
-			<input type="number" id="nzsa-<?php echo esc_attr( $name ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( (string) $value ); ?>" min="<?php echo esc_attr( (string) $min ); ?>" max="<?php echo esc_attr( (string) $max ); ?>" step="<?php echo esc_attr( $step ); ?>" class="small-text">
-			<p class="description"><?php echo esc_html( $help ); ?></p>
-		</div>
+		<fieldset class="nzsa-field">
+			<legend><?php echo esc_html( $label ); ?></legend>
+			<div class="nzsa-standard">
+				<span class="dashicons dashicons-yes-alt" aria-hidden="true"></span>
+				<div>
+					<p><?php echo esc_html( $standard ); ?></p>
+					<p class="nzsa-standard-rec">
+						<?php
+						printf(
+							/* translators: 1: recommended values per device, 2: unit such as KB */
+							esc_html__( 'Recommended: %1$s %2$s', 'seo-assistant-for-elementor' ),
+							esc_html( implode( ' · ', $rec ) ),
+							esc_html( $unit )
+						);
+						?>
+					</p>
+				</div>
+			</div>
+			<div class="nzsa-devices">
+				<?php foreach ( NZSA_Settings::DEVICES as $i => $device ) : ?>
+					<?php $name = $field . '_' . $device; ?>
+					<div class="nzsa-device">
+						<label for="nzsa-<?php echo esc_attr( $name ); ?>">
+							<span class="dashicons <?php echo esc_attr( $devices[ $device ][1] ); ?>" aria-hidden="true"></span>
+							<?php echo esc_html( $devices[ $device ][0] ); ?>
+						</label>
+						<span class="nzsa-input-unit">
+							<input type="number" id="nzsa-<?php echo esc_attr( $name ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( (string) $s[ $name ] ); ?>" min="<?php echo esc_attr( (string) $def['min'][ $i ] ); ?>" max="<?php echo esc_attr( (string) $def['max'][ $i ] ); ?>" step="<?php echo esc_attr( $step ); ?>">
+							<span><?php echo esc_html( $unit ); ?></span>
+						</span>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</fieldset>
 		<?php
 	}
 
 	private static function render_general_tab(): void {
 		$s = NZSA_Settings::all();
 		?>
-		<div class="nzsa-columns">
-			<div class="nzsa-col-main">
-				<section class="nzsa-card">
-					<header class="nzsa-card-head"><h3><?php esc_html_e( 'Review thresholds', 'seo-assistant-for-elementor' ); ?></h3></header>
-					<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-						<input type="hidden" name="action" value="nzsa_save_settings">
-						<?php wp_nonce_field( 'nzsa_save_settings' ); ?>
+		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="nzsa-settings-form">
+			<input type="hidden" name="action" value="nzsa_save_settings">
+			<?php wp_nonce_field( 'nzsa_save_settings' ); ?>
 
-						<div class="nzsa-form-grid">
-							<?php
-							self::number_field( 'image_warn_kb', __( 'Image size: improve above (KB)', 'seo-assistant-for-elementor' ), __( 'Images heavier than this get an Improve notice.', 'seo-assistant-for-elementor' ), $s['image_warn_kb'], 20, 5000 );
-							self::number_field( 'image_error_kb', __( 'Image size: fix above (KB)', 'seo-assistant-for-elementor' ), __( 'Images heavier than this get a Fix now notice.', 'seo-assistant-for-elementor' ), $s['image_error_kb'], 20, 20000 );
-							self::number_field( 'lcp_kb', __( 'Top image: improve above (KB)', 'seo-assistant-for-elementor' ), __( 'The first image on a page decides how fast it feels, so it gets a lower limit.', 'seo-assistant-for-elementor' ), $s['lcp_kb'], 30, 2000 );
-							self::number_field( 'retina_factor', __( 'Sharpness factor', 'seo-assistant-for-elementor' ), __( 'How many times the displayed width an image may be. 2 suits retina screens.', 'seo-assistant-for-elementor' ), $s['retina_factor'], 1, 3, '0.1' );
-							self::number_field( 'max_dom_depth', __( 'Maximum nesting depth', 'seo-assistant-for-elementor' ), __( 'Containers nested deeper than this are flagged.', 'seo-assistant-for-elementor' ), $s['max_dom_depth'], 3, 15 );
-							self::number_field( 'viewport', __( 'Desktop width used for estimates (px)', 'seo-assistant-for-elementor' ), __( 'Used to work out how wide each element appears on desktop.', 'seo-assistant-for-elementor' ), $s['viewport'], 1024, 2560 );
-							?>
+			<p class="nzsa-intro">
+				<?php esc_html_e( 'Each limit can be set for desktop, tablet and mobile. The review uses the limits of the device you are viewing in the Elementor editor. The standard behind every default is written above its fields.', 'seo-assistant-for-elementor' ); ?>
+			</p>
+
+			<section class="nzsa-card">
+				<header class="nzsa-card-head"><h3><span class="dashicons dashicons-format-image" aria-hidden="true"></span> <?php esc_html_e( 'Images', 'seo-assistant-for-elementor' ); ?></h3></header>
+				<?php
+				self::device_field(
+					'image_warn_kb',
+					__( 'Image weight: improve above', 'seo-assistant-for-elementor' ),
+					__( 'There is no official weight limit for images. This is a plugin guideline: lighter images on smaller screens keep the page quick on mobile data. Google judges phones and desktops separately.', 'seo-assistant-for-elementor' ),
+					'KB',
+					$s
+				);
+				self::device_field(
+					'image_error_kb',
+					__( 'Image weight: fix now above', 'seo-assistant-for-elementor' ),
+					__( 'Plugin guideline: above this weight an image almost always needs compressing or resizing. Save photos as WebP or AVIF.', 'seo-assistant-for-elementor' ),
+					'KB',
+					$s
+				);
+				self::device_field(
+					'retina_factor',
+					__( 'Sharpness factor', 'seo-assistant-for-elementor' ),
+					__( 'Common practice for responsive images: a file about 2 times wider than the space it fills looks sharp on high-density screens. 3 times rarely shows a visible gain and adds a lot of weight.', 'seo-assistant-for-elementor' ),
+					'×',
+					$s
+				);
+				?>
+			</section>
+
+			<section class="nzsa-card">
+				<header class="nzsa-card-head"><h3><span class="dashicons dashicons-performance" aria-hidden="true"></span> <?php esc_html_e( 'Page speed (Core Web Vitals)', 'seo-assistant-for-elementor' ); ?></h3></header>
+				<?php
+				self::device_field(
+					'lcp_kb',
+					__( 'Top image: improve above', 'seo-assistant-for-elementor' ),
+					__( 'Standard (Google, web.dev): a good Largest Contentful Paint (LCP) is 2.5 seconds or less for 75% of visits, measured on phones and desktops separately. The first image is usually that element, so it gets a lower limit. The KB values are a plugin guideline.', 'seo-assistant-for-elementor' ),
+					'KB',
+					$s
+				);
+				?>
+			</section>
+
+			<section class="nzsa-card">
+				<header class="nzsa-card-head"><h3><span class="dashicons dashicons-smartphone" aria-hidden="true"></span> <?php esc_html_e( 'Screens', 'seo-assistant-for-elementor' ); ?></h3></header>
+				<?php
+				self::device_field(
+					'viewport',
+					__( 'Screen width used for estimates', 'seo-assistant-for-elementor' ),
+					__( 'Elementor’s default breakpoints are up to 1024 px for tablet and up to 767 px for mobile. These widths are used to work out how large a full-width element looks in each view when sizes cannot be measured.', 'seo-assistant-for-elementor' ),
+					'px',
+					$s
+				);
+				?>
+			</section>
+
+			<section class="nzsa-card">
+				<header class="nzsa-card-head"><h3><span class="dashicons dashicons-editor-ol" aria-hidden="true"></span> <?php esc_html_e( 'Structure', 'seo-assistant-for-elementor' ); ?></h3></header>
+				<fieldset class="nzsa-field">
+					<legend><?php esc_html_e( 'Maximum nesting depth', 'seo-assistant-for-elementor' ); ?></legend>
+					<div class="nzsa-standard">
+						<span class="dashicons dashicons-yes-alt" aria-hidden="true"></span>
+						<div>
+							<p><?php esc_html_e( 'Plugin guideline: keep containers no more than 6 levels deep. Lighthouse warns when the page’s HTML is more than 32 levels deep, and every Elementor container adds levels. This limit is the same on every device.', 'seo-assistant-for-elementor' ); ?></p>
+							<p class="nzsa-standard-rec"><?php esc_html_e( 'Recommended: 6', 'seo-assistant-for-elementor' ); ?></p>
 						</div>
-
-						<label class="nzsa-setting">
-							<span class="nzsa-switch">
-								<input type="checkbox" name="delete_on_uninstall" value="1" <?php checked( 1, (int) $s['delete_on_uninstall'] ); ?>>
-								<span class="nzsa-slider"></span>
+					</div>
+					<div class="nzsa-devices">
+						<div class="nzsa-device">
+							<label for="nzsa-max_dom_depth"><?php esc_html_e( 'All devices', 'seo-assistant-for-elementor' ); ?></label>
+							<span class="nzsa-input-unit">
+								<input type="number" id="nzsa-max_dom_depth" name="max_dom_depth" value="<?php echo esc_attr( (string) $s['max_dom_depth'] ); ?>" min="3" max="15" step="1">
+								<span><?php esc_html_e( 'levels', 'seo-assistant-for-elementor' ); ?></span>
 							</span>
-							<span>
-								<strong><?php esc_html_e( 'Delete data on uninstall', 'seo-assistant-for-elementor' ); ?></strong>
-								<em><?php esc_html_e( 'When you delete the plugin, also remove its settings.', 'seo-assistant-for-elementor' ); ?></em>
-							</span>
-						</label>
+						</div>
+					</div>
+				</fieldset>
+			</section>
 
-						<p><button type="submit" class="nzsa-btn nzsa-btn-primary"><?php esc_html_e( 'Save settings', 'seo-assistant-for-elementor' ); ?></button></p>
-					</form>
-				</section>
-			</div>
-		</div>
+			<section class="nzsa-card">
+				<header class="nzsa-card-head"><h3><span class="dashicons dashicons-database" aria-hidden="true"></span> <?php esc_html_e( 'Data', 'seo-assistant-for-elementor' ); ?></h3></header>
+				<label class="nzsa-setting">
+					<span class="nzsa-switch">
+						<input type="checkbox" name="delete_on_uninstall" value="1" <?php checked( 1, (int) $s['delete_on_uninstall'] ); ?>>
+						<span class="nzsa-slider"></span>
+					</span>
+					<span>
+						<strong><?php esc_html_e( 'Delete data on uninstall', 'seo-assistant-for-elementor' ); ?></strong>
+						<em><?php esc_html_e( 'When you delete the plugin, also remove its settings.', 'seo-assistant-for-elementor' ); ?></em>
+					</span>
+				</label>
+			</section>
+
+			<p><button type="submit" class="nzsa-btn nzsa-btn-primary"><?php esc_html_e( 'Save settings', 'seo-assistant-for-elementor' ); ?></button></p>
+		</form>
 		<?php
 	}
 
@@ -360,6 +471,11 @@ final class NZSA_Admin {
 
 	private static function render_about_tab(): void {
 		$changelog = array(
+			'1.2.3' => array(
+				'Settings in categories: Images, Page speed, Screens, Structure and Data.',
+				'Image weight, sharpness, top-image weight and screen width can be set separately for desktop, tablet and mobile, with the standard written above each field.',
+				'The review uses the limits of the device shown in the editor.',
+			),
 			'1.1.0' => array(
 				'Page roles: the review knows if the page is the home page, a post, an archive, or a header, footer or popup template, and adjusts its checks.',
 				'Real sizes: widths are measured in the editor preview instead of estimated, and in tablet and mobile view elements wider than the screen are reported.',
@@ -422,7 +538,7 @@ final class NZSA_Admin {
 		check_admin_referer( 'nzsa_save_settings' );
 
 		$raw = array();
-		foreach ( array( 'image_warn_kb', 'image_error_kb', 'lcp_kb', 'retina_factor', 'max_dom_depth', 'viewport', 'delete_on_uninstall' ) as $key ) {
+		foreach ( NZSA_Settings::keys() as $key ) {
 			if ( isset( $_POST[ $key ] ) ) {
 				$raw[ $key ] = sanitize_text_field( wp_unslash( $_POST[ $key ] ) );
 			}
